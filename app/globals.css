@@ -142,3 +142,13 @@
     @apply font-sans;
     }
 }
+
+/* Learn / docs: heading + mono stacks (set via next/font variables on layout) */
+@layer utilities {
+  .font-heading-learn {
+    font-family: var(--font-learn-heading), ui-sans-serif, system-ui, sans-serif;
+  }
+  .font-mono-learn {
+    font-family: var(--font-learn-mono), ui-monospace, monospace;
+  }
+}

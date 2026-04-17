@@ -46,6 +46,11 @@
       "sourceType": "github",
       "computedHash": "642a177bee320618caa49f5106cadb4e7594c606e867f61ba7b56d19cf745cd5"
     },
+    "svg-animations": {
+      "source": "supermemoryai/skills",
+      "sourceType": "github",
+      "computedHash": "f25711af04ba7a0f8e662f41cdf707423102eef303dfd3dc7d48d35bb83c7ec4"
+    },
     "vercel-react-best-practices": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",

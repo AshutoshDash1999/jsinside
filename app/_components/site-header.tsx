@@ -1,4 +1,7 @@
+"use client"
+
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import {
   IconBrandGithub,
   IconSearch,
@@ -7,10 +10,16 @@ import {
 
 import { cn } from "@/lib/utils"
 
-const navLinkClass =
+const navLinkInactive =
   "text-sm font-medium text-slate-400 transition-colors hover:text-slate-50"
 
+const navLinkActive =
+  "text-sm font-medium text-violet-400 transition-colors"
+
 export function SiteHeader() {
+  const pathname = usePathname()
+  const learnActive = pathname.startsWith("/learn")
+
   return (
     <header
       className={cn(
@@ -29,20 +38,34 @@ export function SiteHeader() {
           className="hidden items-center gap-8 md:flex"
           aria-label="Primary"
         >
-          <Link href="#features" className={navLinkClass}>
+          <Link
+            href="/learn"
+            className={learnActive ? navLinkActive : navLinkInactive}
+            aria-current={learnActive ? "page" : undefined}
+          >
             Learn
           </Link>
-          <Link href="/playground" className={navLinkClass}>
+          <Link
+            href="/playground"
+            className={
+              pathname.startsWith("/playground")
+                ? navLinkActive
+                : navLinkInactive
+            }
+            aria-current={
+              pathname.startsWith("/playground") ? "page" : undefined
+            }
+          >
             Playground
           </Link>
-          <Link href="#topics" className={navLinkClass}>
+          <Link href="/#topics" className={navLinkInactive}>
             Topics
           </Link>
           <a
             href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            className={navLinkClass}
+            className={navLinkInactive}
           >
             GitHub
           </a>

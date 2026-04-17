@@ -25,7 +25,7 @@ export function HeroSection() {
                 "rounded-xl border-transparent bg-linear-to-r from-violet-600 to-violet-500 text-white shadow-lg shadow-violet-500/25 transition-shadow hover:bg-violet-600 hover:shadow-lg hover:shadow-violet-500/40",
               )}
             >
-              <Link href="#features">Start Learning</Link>
+              <Link href="/learn">Start Learning</Link>
             </Button>
             <Button
               asChild

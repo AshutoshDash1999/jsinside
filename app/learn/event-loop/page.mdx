@@ -1,0 +1,86 @@
+import { LearnRuntimeVisual } from "@/app/learn/_components/learn-runtime-visual"
+
+export const metadata = {
+  title: "Event Loop",
+  description:
+    "How the JavaScript runtime schedules work across the call stack, task queues, and browser APIs.",
+}
+
+# The event loop
+
+JavaScript runs on a **single thread**, but your programs still handle timers, network
+responses, and DOM events without freezing the page. The event loop is the scheduler
+that moves work between the call stack, Web APIs, and task queues.
+
+<h2 id="runtime-at-a-glance">Runtime at a glance</h2>
+
+The diagram below is a simplified map of how execution flows: synchronous work fills the
+call stack, asynchronous work is handled by host APIs, and the event loop decides what
+runs next.
+
+<LearnRuntimeVisual />
+
+<h2 id="queues-and-scheduling">Queues & scheduling</h2>
+
+When the call stack is empty, the event loop pulls the next task. Two queue families
+matter in practice:
+
+- **Macrotasks** — `setTimeout`, `setInterval`, I/O callbacks, UI rendering work.
+- **Microtasks** — Promises, `queueMicrotask`, and some internal jobs run _before_ the
+  next macrotask.
+
+That ordering is why promise callbacks can run before the next timer, even if the timer
+was scheduled first.
+
+<h2 id="microtasks-vs-macrotasks">Microtasks vs macrotasks</h2>
+
+```js
+console.log('A')
+
+setTimeout(() => console.log('B'), 0)
+
+Promise.resolve().then(() => console.log('C'))
+
+console.log('D')
+```
+
+The console prints `A`, `D`, `C`, then `B`. Synchronous code finishes first, microtasks
+drain next, and the macrotask queue runs after.
+
+<h2 id="non-blocking-io">Non-blocking I/O</h2>
+
+<div className="not-prose my-8 grid gap-4 md:grid-cols-2">
+  <div className="rounded-xl bg-gradient-to-br from-emerald-500/25 to-violet-500/10 p-px shadow-lg shadow-slate-950/40">
+    <div className="h-full rounded-[11px] border border-white/5 bg-[#11111B]/90 p-5 ring-1 ring-inset ring-white/5 backdrop-blur-xl">
+      <h3 className="font-heading-learn text-base font-semibold text-emerald-400">
+        Non-blocking I/O
+      </h3>
+      <p className="mt-2 text-sm leading-relaxed text-slate-400">
+        Network and disk work are delegated to the host. When results arrive, callbacks
+        are queued—your main thread keeps parsing and rendering.
+      </p>
+    </div>
+  </div>
+  <div className="rounded-xl bg-gradient-to-br from-violet-500/25 to-emerald-500/10 p-px shadow-lg shadow-slate-950/40">
+    <div className="h-full rounded-[11px] border border-white/5 bg-[#11111B]/90 p-5 ring-1 ring-inset ring-white/5 backdrop-blur-xl">
+      <h3 className="font-heading-learn text-base font-semibold text-violet-400">
+        Task prioritization
+      </h3>
+      <p className="mt-2 text-sm leading-relaxed text-slate-400">
+        Microtasks starve macrotasks if enqueued in a loop—always yield for long chains.
+        Browsers may also interleave rendering for responsiveness.
+      </p>
+    </div>
+  </div>
+</div>
+
+<h2 id="takeaways">Takeaways</h2>
+
+- The **call stack** runs synchronous JavaScript; when it empties, the event loop can
+  pick new tasks.
+- **Microtasks** run to completion before the next macrotask.
+- **Timers** are not guarantees of exact timing—they schedule macrotasks.
+
+> **Remember:** the loop is cooperative. Long synchronous work still blocks rendering
+> and input—profile hot paths and split work with `queueMicrotask`, `requestAnimationFrame`,
+> or chunked scheduling when needed.
