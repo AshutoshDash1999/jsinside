@@ -1,93 +1,90 @@
 import {
     IconBraces,
     IconEngine,
+    IconHierarchy,
+    IconPackages,
     IconRefresh,
     IconRoute,
 } from "@tabler/icons-react"
 
+import {
+    FeatureTileIllustration,
+    type FeatureTileId,
+} from "@/app/_components/bento-tile-art"
 import { cn } from "@/lib/utils"
 
 /**
- * 3-column × 2-row bento:
- * Row 1: [ ⅔ Event Loop ] [ ⅓ Playground ]
- * Row 2: [ ⅓ Animations ] [ ⅔ Runtime ]
+ * 4-column bento (md+), 3 rows:
+ *   [ Hero 2×2 ][ Playground 2×1 ]
+ *   [ (hero)    ][ Anim ][ Runtime ]
+ *   [ Call stk 2×1 ][ Modules 2×1 ]
  */
-const features = [
+const features: {
+    id: FeatureTileId
+    title: string
+    description: string
+    icon: typeof IconRefresh
+    gridClass: string
+    iconClass: string
+}[] = [
     {
+        id: "event-loop",
         title: "Event Loop Visualizer",
         description:
             "Watch microtasks and macrotasks execute in real-time. See exactly when the render queue gets its turn.",
         icon: IconRefresh,
-        gridClass: "md:col-span-2",
+        gridClass: "md:col-span-2 md:row-span-2",
         iconClass: "text-emerald-400",
-        variant: "default" as const,
-        decoration: "window" as const,
     },
     {
+        id: "playground",
         title: "JS Playground Simulator",
         description:
             "A sandboxed environment designed to break and inspect code structures.",
         icon: IconBraces,
-        gridClass: "md:col-span-1",
-        iconClass: "text-violet-950",
-        variant: "accent" as const,
-        decoration: "comment" as const,
+        gridClass: "md:col-span-2 md:row-span-1",
+        iconClass: "text-cyan-400",
     },
     {
+        id: "animations",
         title: "Learn with Animations",
         description:
             "Complex concepts like Prototypal Inheritance explained through smooth, interactive motion graphics.",
         icon: IconRoute,
-        gridClass: "md:col-span-1",
+        gridClass: "md:col-span-1 md:row-span-1",
         iconClass: "text-orange-400",
-        variant: "default" as const,
-        decoration: "none" as const,
     },
     {
+        id: "runtime",
         title: "Real Runtime Internals",
         description:
             "Step into the V8 engine logic. Visualize the Call Stack and Memory Heap as you execute line by line.",
         icon: IconEngine,
-        gridClass: "md:col-span-2",
+        gridClass: "md:col-span-1 md:row-span-1",
         iconClass: "text-violet-400",
-        variant: "default" as const,
-        decoration: "orbit" as const,
     },
-] as const
+    {
+        id: "call-stack",
+        title: "Call Stack & Scope",
+        description:
+            "Lexical environments, execution contexts, and how nested functions resolve variables at runtime.",
+        icon: IconHierarchy,
+        gridClass: "md:col-span-2 md:row-span-1",
+        iconClass: "text-sky-400",
+    },
+    {
+        id: "modules",
+        title: "Modules & Imports",
+        description:
+            "Live bindings, static analysis, and how the loader wires dependency graphs before your code runs.",
+        icon: IconPackages,
+        gridClass: "md:col-span-2 md:row-span-1",
+        iconClass: "text-amber-300",
+    },
+]
 
-function FeatureDecoration({
-    type,
-}: {
-    type: "window" | "comment" | "orbit" | "none"
-}) {
-    if (type === "window") {
-        return (
-            <div
-                className="mt-4 flex items-center gap-2 rounded-lg border border-white/10 bg-slate-900/80 px-3 py-2"
-                aria-hidden
-            >
-                <span className="size-2 rounded-full bg-red-500/90" />
-                <span className="size-2 rounded-full bg-amber-400/90" />
-                <span className="size-2 rounded-full bg-emerald-500/90" />
-                <span className="ml-2 h-1 flex-1 rounded bg-white/5" />
-            </div>
-        )
-    }
-
-    if (type === "orbit") {
-        return (
-            <div
-                className="pointer-events-none absolute -right-4 bottom-0 flex size-36 items-start justify-start opacity-30 md:size-44"
-                aria-hidden
-            >
-                <div className="relative flex size-full items-center justify-center rounded-full border border-dashed border-violet-400/40">
-                    <IconEngine className="absolute left-2 top-3 size-6 text-violet-300" stroke={1.5} />
-                </div>
-            </div>
-        )
-    }
-    return null
-}
+const featureCardMotion =
+    "transform-gpu transition duration-300 ease-out will-change-transform group-hover/feature:-translate-y-1 group-hover/feature:shadow-xl group-hover/feature:shadow-violet-500/15 group-active/feature:translate-y-0"
 
 export function FeatureGrid() {
     return (
@@ -104,66 +101,46 @@ export function FeatureGrid() {
                     Built for deep understanding
                 </h2>
                 <p className="mx-auto mb-12 max-w-2xl text-center text-base leading-relaxed text-slate-400">
-                    Four pillars that turn abstract runtime behavior into something you
-                    can see and reason about.
+                    Six angles on the runtime—each one built to turn abstract behavior
+                    into something you can see and reason about.
                 </p>
-                <ul className="grid grid-cols-1 gap-4 md:grid-cols-3 md:grid-rows-2 md:gap-4 md:auto-rows-fr">
+                <ul className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-4 md:auto-rows-fr">
                     {features.map(
                         ({
+                            id,
                             title,
                             description,
                             icon: Icon,
                             gridClass,
                             iconClass,
-                            variant,
-                            decoration,
                         }) => (
                             <li
-                                key={title}
-                                className={cn("min-h-0 md:min-h-52", gridClass)}
+                                key={id}
+                                className={cn(
+                                    "group/feature min-h-0 md:min-h-48",
+                                    gridClass,
+                                )}
                             >
                                 <div
                                     className={cn(
-                                        "group relative flex h-full min-h-48 flex-col overflow-hidden rounded-xl border p-6 shadow-lg shadow-slate-950/50 ring-1 ring-inset backdrop-blur-xl transition-shadow",
-                                        variant === "default" &&
-                                        "border-white/10 bg-white/5 ring-white/5 hover:border-white/10 hover:shadow-violet-500/20",
-                                        variant === "accent" &&
-                                        "border-violet-400/35 bg-violet-400/20 ring-violet-400/20 hover:bg-violet-400/25",
+                                        "relative flex h-full min-h-48 flex-col overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 shadow-lg shadow-slate-950/50 ring-1 ring-inset ring-white/5 backdrop-blur-xl",
+                                        featureCardMotion,
+                                        "hover:border-white/15 hover:shadow-violet-500/25",
                                     )}
                                 >
-                                    <div
-                                        className={cn(
-                                            "mb-4 inline-flex w-fit rounded-lg p-3 ring-1",
-                                            variant === "default" && "bg-white/5 ring-white/10",
-                                            variant === "accent" &&
-                                            "bg-violet-950/20 ring-violet-950/20",
-                                        )}
-                                    >
-                                        <Icon className={cn("size-7", iconClass)} stroke={2} aria-hidden />
+                                    <div className="shrink-0">
+                                        <div className="mb-4 inline-flex w-fit rounded-lg bg-white/5 p-3 ring-1 ring-white/10">
+                                            <Icon className={cn("size-7", iconClass)} stroke={2} aria-hidden />
+                                        </div>
+                                        <h3 className="mb-2 text-lg font-semibold text-slate-50">
+                                            {title}
+                                        </h3>
+                                        <p className="relative z-10 text-sm leading-relaxed text-slate-400">
+                                            {description}
+                                        </p>
                                     </div>
-                                    <h3
-                                        className={cn(
-                                            "mb-2 text-lg font-semibold",
-                                            variant === "default" && "text-slate-50",
-                                            variant === "accent" && "text-violet-950",
-                                        )}
-                                    >
-                                        {title}
-                                    </h3>
-                                    <p
-                                        className={cn(
-                                            "relative z-10 text-sm leading-relaxed",
-                                            variant === "default" && "text-slate-400",
-                                            variant === "accent" && "text-violet-950/85",
-                                            decoration === "window" && "flex-1",
-                                        )}
-                                    >
-                                        {description}
-                                    </p>
 
-                                    {decoration !== "none" && (
-                                        <FeatureDecoration type={decoration} />
-                                    )}
+                                    <FeatureTileIllustration id={id} />
                                 </div>
                             </li>
                         ),

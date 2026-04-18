@@ -6,7 +6,7 @@ import { TopicPreview } from "@/app/_components/topic-preview"
 
 export default function Page() {
   return (
-    <div className="relative min-h-svh overflow-x-hidden bg-slate-950">
+    <div className="relative min-h-svh overflow-x-clip bg-slate-950">
       <div
         className="pointer-events-none absolute inset-0 z-0 bg-linear-to-b from-violet-950/30 via-slate-950 to-slate-950"
         aria-hidden

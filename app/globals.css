@@ -131,6 +131,383 @@
   }
 }
 
+/* Bento tile SVG art — animate only while hovering the card (parent .group\/feature | .group\/topic) */
+@keyframes bento-orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bento-dash-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes bento-dash-loop {
+  0%,
+  100% {
+    stroke-dashoffset: 56;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes bento-queue-dot {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.35;
+  }
+  33% {
+    transform: translateX(8px);
+    opacity: 1;
+  }
+  66% {
+    transform: translateX(16px);
+    opacity: 0.35;
+  }
+}
+
+@keyframes bento-brace-glow {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes bento-stack-nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes bento-stack-nudge-mid {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes bento-arrow-flow {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes bento-rise {
+  0%,
+  100% {
+    transform: translateY(4px);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+}
+
+@keyframes bento-link-pulse {
+  0%,
+  100% {
+    stroke-opacity: 0.35;
+  }
+  50% {
+    stroke-opacity: 1;
+  }
+}
+
+@keyframes bento-tick-fade {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes bento-event-flow {
+  to {
+    stroke-dashoffset: -48;
+  }
+}
+
+@layer components {
+  .bento-art {
+    @apply pointer-events-none flex min-h-[8rem] w-full flex-1 flex-col justify-center pt-3 text-white/50;
+  }
+
+  .bento-art svg {
+    @apply mx-auto block h-auto w-full max-w-full min-h-[7.5rem] object-contain;
+    max-height: min(13rem, 32vh);
+  }
+
+  .bento-art-feature-lg svg {
+    min-height: 9.5rem;
+    max-height: min(17rem, 40vh);
+  }
+
+  /* macrotask / microtask queue cells (rects) */
+  .bento-queue-hover rect:nth-child(1) {
+    animation: bento-queue-dot 1.4s ease-in-out infinite paused;
+  }
+
+  .bento-queue-hover rect:nth-child(2) {
+    animation: bento-queue-dot 1.4s ease-in-out 0.15s infinite paused;
+  }
+
+  .bento-queue-hover rect:nth-child(3) {
+    animation: bento-queue-dot 1.4s ease-in-out 0.3s infinite paused;
+  }
+
+  .bento-queue-hover rect:nth-child(4) {
+    animation: bento-queue-dot 1.4s ease-in-out 0.45s infinite paused;
+  }
+
+  .bento-event-flow-hover {
+    stroke-dasharray: 14 8;
+    stroke-dashoffset: 80;
+    animation: bento-event-flow 1.6s linear infinite paused;
+  }
+
+  /* Paused until card hover; running while hovered/focus-within */
+  .bento-spin-hover {
+    animation: bento-orbit-spin 7s linear infinite paused;
+  }
+
+  .bento-dash-hover {
+    stroke-dasharray: 28;
+    stroke-dashoffset: 56;
+    animation: bento-dash-loop 1.8s ease-in-out infinite paused;
+  }
+
+  .bento-queue-hover circle:nth-child(1) {
+    animation: bento-queue-dot 1.4s ease-in-out infinite paused;
+  }
+
+  .bento-queue-hover circle:nth-child(2) {
+    animation: bento-queue-dot 1.4s ease-in-out 0.15s infinite paused;
+  }
+
+  .bento-queue-hover circle:nth-child(3) {
+    animation: bento-queue-dot 1.4s ease-in-out 0.3s infinite paused;
+  }
+
+  .bento-brace-hover path {
+    animation: bento-brace-glow 1.2s ease-in-out infinite paused;
+  }
+
+  .bento-path-dash-hover path {
+    stroke-dasharray: 36;
+    stroke-dashoffset: 72;
+    animation: bento-dash-loop 2s ease-in-out infinite paused;
+  }
+
+  .bento-stack-hover rect:nth-child(1) {
+    animation: bento-stack-nudge 1s ease-in-out infinite paused;
+  }
+
+  .bento-stack-hover rect:nth-child(2) {
+    animation: bento-stack-nudge-mid 1s ease-in-out 0.1s infinite paused;
+  }
+
+  .bento-stack-hover rect:nth-child(3) {
+    animation: bento-stack-nudge 1s ease-in-out 0.2s infinite paused;
+  }
+
+  .bento-mod-line-hover {
+    stroke-dasharray: 20;
+    stroke-dashoffset: 40;
+    animation: bento-dash-loop 1.4s ease-in-out infinite paused;
+  }
+
+  .bento-topic-arrow-hover {
+    stroke-dasharray: 32;
+    stroke-dashoffset: 64;
+    animation: bento-dash-loop 2s ease-in-out infinite paused;
+  }
+
+  .bento-topic-rise-hover line:nth-child(1) {
+    animation: bento-rise 0.9s ease-in-out infinite paused;
+  }
+
+  .bento-topic-rise-hover line:nth-child(2) {
+    animation: bento-rise 0.9s ease-in-out 0.12s infinite paused;
+  }
+
+  .bento-topic-rise-hover line:nth-child(3) {
+    animation: bento-rise 0.9s ease-in-out 0.24s infinite paused;
+  }
+
+  .bento-chain-hover path {
+    animation: bento-link-pulse 1.1s ease-in-out infinite paused;
+  }
+
+  .bento-tick-hover g line {
+    animation: bento-tick-fade 1.2s ease-in-out infinite paused;
+  }
+
+  .bento-tick-hover g line:nth-child(1) {
+    animation-delay: 0s;
+  }
+
+  .bento-tick-hover g line:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+
+  .bento-tick-hover g line:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  .bento-tick-hover g line:nth-child(4) {
+    animation-delay: 0.45s;
+  }
+
+  .bento-tick-hover path:nth-child(1) {
+    animation: bento-tick-fade 1.2s ease-in-out infinite paused;
+    animation-delay: 0s;
+  }
+
+  .bento-tick-hover path:nth-child(2) {
+    animation: bento-tick-fade 1.2s ease-in-out infinite paused;
+    animation-delay: 0.15s;
+  }
+
+  .bento-tick-hover path:nth-child(3) {
+    animation: bento-tick-fade 1.2s ease-in-out infinite paused;
+    animation-delay: 0.3s;
+  }
+
+  .group\/feature:hover .bento-spin-hover,
+  .group\/feature:focus-within .bento-spin-hover,
+  .group\/topic:hover .bento-spin-hover,
+  .group\/topic:focus-within .bento-spin-hover {
+    animation-play-state: running;
+  }
+
+  .group\/feature:hover .bento-dash-hover,
+  .group\/feature:focus-within .bento-dash-hover,
+  .group\/topic:hover .bento-dash-hover,
+  .group\/topic:focus-within .bento-dash-hover {
+    animation-play-state: running;
+  }
+
+  .group\/feature:hover .bento-queue-hover circle,
+  .group\/feature:focus-within .bento-queue-hover circle,
+  .group\/topic:hover .bento-queue-hover circle,
+  .group\/topic:focus-within .bento-queue-hover circle {
+    animation-play-state: running;
+  }
+
+  .group\/feature:hover .bento-queue-hover rect,
+  .group\/feature:focus-within .bento-queue-hover rect,
+  .group\/topic:hover .bento-queue-hover rect,
+  .group\/topic:focus-within .bento-queue-hover rect {
+    animation-play-state: running;
+  }
+
+  .group\/feature:hover .bento-event-flow-hover,
+  .group\/feature:focus-within .bento-event-flow-hover,
+  .group\/topic:hover .bento-event-flow-hover,
+  .group\/topic:focus-within .bento-event-flow-hover {
+    animation-play-state: running;
+  }
+
+  .group\/feature:hover .bento-brace-hover path,
+  .group\/feature:focus-within .bento-brace-hover path,
+  .group\/topic:hover .bento-brace-hover path,
+  .group\/topic:focus-within .bento-brace-hover path {
+    animation-play-state: running;
+  }
+
+  .group\/feature:hover .bento-path-dash-hover path,
+  .group\/feature:focus-within .bento-path-dash-hover path,
+  .group\/topic:hover .bento-path-dash-hover path,
+  .group\/topic:focus-within .bento-path-dash-hover path {
+    animation-play-state: running;
+  }
+
+  .group\/feature:hover .bento-stack-hover rect,
+  .group\/feature:focus-within .bento-stack-hover rect,
+  .group\/topic:hover .bento-stack-hover rect,
+  .group\/topic:focus-within .bento-stack-hover rect {
+    animation-play-state: running;
+  }
+
+  .group\/feature:hover .bento-mod-line-hover,
+  .group\/feature:focus-within .bento-mod-line-hover,
+  .group\/topic:hover .bento-mod-line-hover,
+  .group\/topic:focus-within .bento-mod-line-hover {
+    animation-play-state: running;
+  }
+
+  .group\/feature:hover .bento-topic-arrow-hover,
+  .group\/feature:focus-within .bento-topic-arrow-hover,
+  .group\/topic:hover .bento-topic-arrow-hover,
+  .group\/topic:focus-within .bento-topic-arrow-hover {
+    animation-play-state: running;
+  }
+
+  .group\/feature:hover .bento-topic-rise-hover line,
+  .group\/feature:focus-within .bento-topic-rise-hover line,
+  .group\/topic:hover .bento-topic-rise-hover line,
+  .group\/topic:focus-within .bento-topic-rise-hover line {
+    animation-play-state: running;
+  }
+
+  .group\/feature:hover .bento-chain-hover path,
+  .group\/feature:focus-within .bento-chain-hover path,
+  .group\/topic:hover .bento-chain-hover path,
+  .group\/topic:focus-within .bento-chain-hover path {
+    animation-play-state: running;
+  }
+
+  .group\/feature:hover .bento-tick-hover g line,
+  .group\/feature:focus-within .bento-tick-hover g line,
+  .group\/topic:hover .bento-tick-hover g line,
+  .group\/topic:focus-within .bento-tick-hover g line {
+    animation-play-state: running;
+  }
+
+  .group\/feature:hover .bento-tick-hover path,
+  .group\/feature:focus-within .bento-tick-hover path,
+  .group\/topic:hover .bento-tick-hover path,
+  .group\/topic:focus-within .bento-tick-hover path {
+    animation-play-state: running;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bento-spin-hover,
+    .bento-dash-hover,
+    .bento-queue-hover circle,
+    .bento-queue-hover rect,
+    .bento-brace-hover path,
+    .bento-path-dash-hover path,
+    .bento-stack-hover rect,
+    .bento-mod-line-hover,
+    .bento-topic-arrow-hover,
+    .bento-topic-rise-hover line,
+    .bento-chain-hover path,
+    .bento-tick-hover g line,
+    .bento-tick-hover path,
+    .bento-event-flow-hover {
+      animation: none !important;
+    }
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
