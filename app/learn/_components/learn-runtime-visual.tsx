@@ -1,25 +1,15 @@
 "use client"
 
-import {
-  IconPlayerPause,
-  IconPlayerPlay,
-  IconPlayerSkipForward,
-  IconRotateClockwise,
-} from "@tabler/icons-react"
 import { AnimatePresence, motion, useReducedMotion } from "motion/react"
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useMemo } from "react"
 
+import { LearnAnimationFrame } from "@/app/learn/_components/learn-animation-frame"
 import { cn } from "@/lib/utils"
 
 /**
  * Interactive event-loop explainer (SVG + Motion).
- *
- * Remotion is built for programmatic *video* (timeline compositions, renders,
- * Remotion Studio). For play / pause / step controls in a doc page, React state
- * + SVG + Motion is lighter and a better fit than embedding @remotion/player.
+ * Shell controls live in `LearnAnimationFrame`.
  */
-
-const AUTO_ADVANCE_MS = 2200
 
 type Step = {
   caption: string
@@ -107,34 +97,6 @@ const STEPS: Step[] = [
 
 export function LearnRuntimeVisual() {
   const reducedMotion = useReducedMotion() === true
-  const [stepIndex, setStepIndex] = useState(0)
-  const [playing, setPlaying] = useState(false)
-
-  const step = STEPS[stepIndex]!
-  const lastIndex = STEPS.length - 1
-
-  const advance = useCallback(() => {
-    setStepIndex((i) => (i >= lastIndex ? 0 : i + 1))
-  }, [lastIndex])
-
-  useEffect(() => {
-    if (!playing || reducedMotion) return
-    const id = window.setInterval(advance, AUTO_ADVANCE_MS)
-    return () => window.clearInterval(id)
-  }, [playing, reducedMotion, advance])
-
-  const goNext = useCallback(() => {
-    advance()
-  }, [advance])
-
-  const reset = useCallback(() => {
-    setPlaying(false)
-    setStepIndex(0)
-  }, [])
-
-  const togglePlay = useCallback(() => {
-    setPlaying((p) => !p)
-  }, [])
 
   const transition = useMemo(
     () =>
@@ -145,94 +107,26 @@ export function LearnRuntimeVisual() {
   )
 
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-xl shadow-slate-950/50 ring-1 ring-inset ring-white/5 backdrop-blur-xl">
-      <div
-        className="pointer-events-none absolute -left-1/4 top-0 h-48 w-1/2 rounded-full bg-violet-500/20 blur-3xl"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute -right-1/4 bottom-0 h-40 w-1/2 rounded-full bg-emerald-500/15 blur-3xl"
-        aria-hidden
-      />
-
-      <div className="relative p-6 md:p-8">
-        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs font-medium uppercase tracking-wider text-slate-500">
-            Interactive runtime map
-          </p>
-
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="mr-1 text-xs tabular-nums text-slate-500">
-              Step {stepIndex + 1} / {STEPS.length}
-            </span>
-            <button
-              type="button"
-              onClick={togglePlay}
-              disabled={reducedMotion}
-              className={cn(
-                "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium",
-                "bg-violet-600 text-white shadow-lg shadow-violet-500/25 transition-colors",
-                "hover:bg-violet-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B12]",
-                "disabled:cursor-not-allowed disabled:opacity-50",
-              )}
-              aria-pressed={playing}
-              title={
-                reducedMotion
-                  ? "Auto-play disabled when reduced motion is preferred"
-                  : playing
-                    ? "Pause auto-advance"
-                    : "Play — auto-advance steps"
-              }
-            >
-              {playing ? (
-                <>
-                  <IconPlayerPause className="size-4" stroke={2} aria-hidden />
-                  Pause
-                </>
-              ) : (
-                <>
-                  <IconPlayerPlay className="size-4" stroke={2} aria-hidden />
-                  Play
-                </>
-              )}
-            </button>
-            <button
-              type="button"
-              onClick={goNext}
-              className={cn(
-                "inline-flex items-center gap-1.5 rounded-lg border border-white/20 px-3 py-1.5 text-sm font-medium text-slate-200",
-                "transition-colors hover:border-white/30 hover:bg-white/5",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B12]",
-              )}
-              title="Advance one step"
-            >
-              <IconPlayerSkipForward className="size-4" stroke={2} aria-hidden />
-              Next
-            </button>
-            <button
-              type="button"
-              onClick={reset}
-              className={cn(
-                "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-slate-400",
-                "transition-colors hover:bg-white/5 hover:text-slate-200",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B12]",
-              )}
-              title="Back to step 1"
-            >
-              <IconRotateClockwise className="size-4" stroke={2} aria-hidden />
-              Reset
-            </button>
-          </div>
-        </div>
-
-        {reducedMotion ? (
-          <p className="mb-3 text-xs text-slate-500">
-            Auto-play is off when “reduce motion” is enabled. Use Next to step
-            through.
-          </p>
-        ) : null}
-
-        <div className="aspect-[16/9] w-full max-h-[320px]">
+    <LearnAnimationFrame
+      stepCount={STEPS.length}
+      title="Interactive runtime map"
+      caption={({ stepIndex }) => {
+        const step = STEPS[stepIndex]!
+        return (
+          <motion.p
+            key={stepIndex}
+            initial={reducedMotion ? false : { opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={transition}
+          >
+            {step.caption}
+          </motion.p>
+        )
+      }}
+    >
+      {({ stepIndex }) => {
+        const step = STEPS[stepIndex]!
+        return (
           <svg
             viewBox="0 0 520 280"
             className="h-full w-full text-violet-500"
@@ -271,10 +165,7 @@ export function LearnRuntimeVisual() {
               strokeWidth="1"
             />
 
-            <StackFrames
-              labels={step.stack}
-              transition={transition}
-            />
+            <StackFrames labels={step.stack} transition={transition} />
 
             <text
               x="260"
@@ -446,19 +337,9 @@ export function LearnRuntimeVisual() {
               transition={transition}
             />
           </svg>
-        </div>
-
-        <motion.p
-          key={stepIndex}
-          initial={reducedMotion ? false : { opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={transition}
-          className="mt-4 text-sm leading-relaxed text-slate-400"
-        >
-          {step.caption}
-        </motion.p>
-      </div>
-    </div>
+        )
+      }}
+    </LearnAnimationFrame>
   )
 }
 
@@ -469,7 +350,6 @@ function StackFrames({
   labels: string[]
   transition: { duration: number; ease?: readonly [number, number, number, number] }
 }) {
-  /** Rect top Y inside stack column; lower = higher on screen. */
   const rectTopForIndex = (i: number) => {
     if (labels.length === 1) return 58
     return [94, 58][i] ?? 58

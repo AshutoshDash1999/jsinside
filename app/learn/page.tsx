@@ -47,9 +47,7 @@ export default function LearnIndexPage() {
                   {topic.label}
                 </span>
                 <span className="mt-1 block text-sm text-slate-500">
-                  {topic.href === "/learn/event-loop"
-                    ? "Sample MDX lesson with runtime map"
-                    : "Coming soon"}
+                  {topic.description ?? "Coming soon"}
                 </span>
               </Link>
             </li>

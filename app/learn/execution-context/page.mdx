@@ -1,0 +1,91 @@
+import Link from "next/link"
+
+import { ExecutionContextBoxVisual } from "@/app/learn/_components/execution-context-box-visual"
+import { ExecutionContextMemoryCodeVisual } from "@/app/learn/_components/execution-context-memory-code-visual"
+
+export const metadata = {
+  title: "Execution Context",
+  description:
+    "How the engine wraps your code in an execution context: variable environment and thread of execution.",
+}
+
+# Execution context
+
+Before you study the **event loop** and async behavior in depth, it helps to know **where**
+JavaScript runs: not “in the air,” but inside a concrete structure the engine creates
+called an **execution context**.
+
+<h2 id="why-this-matters">Why this matters</h2>
+
+People often ask: Is JavaScript synchronous or asynchronous? Single-threaded or not?
+The short answers are:
+
+- For **running your JS code** on the main path, execution is **synchronous** and
+  **single-threaded**: one statement at a time, in order.
+- **Asynchronous** behavior (timers, network, DOM events) is coordinated by the host
+  and the **event loop** — that is a separate lesson.
+
+This page is about the **box** your synchronous code lives in.
+
+<h2 id="execution-context-defined">What is an execution context?</h2>
+
+**Everything** that happens for a chunk of JavaScript runs inside an **execution
+context**. You can picture it as a single container: one place where the engine keeps
+the bindings it needs and runs your code line by line.
+
+<ExecutionContextBoxVisual />
+
+<h2 id="two-components">Memory vs code</h2>
+
+Each execution context has two conceptual parts (names vary slightly across docs and
+engines, but the idea is stable):
+
+- **Variable environment (memory)** — stores identifiers and their values as
+  **key–value** pairs (variables, function references, etc.).
+- **Thread of execution (code)** — the place where code actually **runs**, **one line
+  at a time**. Only one line’s work is active in this sense at a time on the main
+  path.
+
+<ExecutionContextMemoryCodeVisual />
+
+<h2 id="sync-single-threaded">Synchronous & single-threaded</h2>
+
+Putting it together:
+
+- **Single-threaded** — the main JavaScript execution path does **one** thing at a
+  time.
+- **Synchronous** — the next line does not conceptually “cut in front” of the current
+  line; ordering is sequential for that running code.
+
+So how do `fetch`, `setTimeout`, or click handlers fit in? They schedule work **outside**
+this straight-line run; the **event loop** decides what runs when the stack is clear.
+That is covered in detail in{" "}
+<Link
+  className="font-medium text-violet-400 underline decoration-violet-500/40 underline-offset-4 hover:text-violet-300"
+  href="/learn/event-loop"
+>
+  Event Loop
+</Link>
+— no need to duplicate it here.
+
+<h2 id="recap">Recap</h2>
+
+- An **execution context** is the container for a unit of JS work: **memory**
+  (bindings) plus **code** (sequential execution).
+- **Variable environment** ≈ where names map to values; **thread of execution** ≈
+  where lines run, one after another.
+- **Async** is layered on top via the host and the event loop, not by “multi-threading”
+  your source line-by-line model.
+
+<blockquote className="not-prose border-l-4 border-violet-500/50 bg-violet-500/5 py-2 pl-4 pr-4 text-slate-400">
+  <p className="mb-0">
+    <strong className="text-slate-300">Next:</strong> continue to{" "}
+    <Link
+      className="font-medium text-violet-400 underline decoration-violet-500/40 underline-offset-4 hover:text-violet-300"
+      href="/learn/event-loop"
+    >
+      Event Loop
+    </Link>
+    {" "}— how the runtime schedules work after your synchronous code finishes.
+  </p>
+</blockquote>
