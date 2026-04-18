@@ -1,12 +1,7 @@
-import { JetBrains_Mono, Manrope } from "next/font/google"
+import { JetBrains_Mono } from "next/font/google"
 
 import { LearnLayoutClient } from "@/app/learn/_components/learn-layout-client"
 import { cn } from "@/lib/utils"
-
-const manrope = Manrope({
-  subsets: ["latin"],
-  variable: "--font-learn-heading",
-})
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -19,7 +14,7 @@ export default function LearnLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className={cn(manrope.variable, jetbrainsMono.variable)}>
+    <div className={cn(jetbrainsMono.variable)}>
       <LearnLayoutClient>{children}</LearnLayoutClient>
     </div>
   )

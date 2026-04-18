@@ -523,8 +523,8 @@
 /* Learn / docs: heading + mono stacks (set via next/font variables on layout) */
 @layer utilities {
   .font-heading-learn {
-    font-family:
-      var(--font-learn-heading), ui-sans-serif, system-ui, sans-serif;
+    /* Match site UI (Nunito / --font-sans); learn layout no longer overrides with Manrope */
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   }
   .font-mono-learn {
     font-family: var(--font-learn-mono), ui-monospace, monospace;

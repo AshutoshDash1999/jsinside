@@ -77,7 +77,7 @@ export function LearnAnimationFrame({
   const ctx: LearnAnimationFrameContext = { stepIndex, stepCount }
 
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-xl shadow-slate-950/50 ring-1 ring-inset ring-white/5 backdrop-blur-xl">
+    <div className="relative mb-10 overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-xl shadow-slate-950/50 ring-1 ring-inset ring-white/5 backdrop-blur-xl md:mb-12">
       <div
         className="pointer-events-none absolute -left-1/4 top-0 h-48 w-1/2 rounded-full bg-violet-500/20 blur-3xl"
         aria-hidden

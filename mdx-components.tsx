@@ -6,7 +6,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: ({ children, ...props }) => (
       <h1
-        className="font-heading-learn mb-6 scroll-mt-28 text-4xl font-bold tracking-[-0.02em] text-slate-50"
+        className="font-heading-learn mb-8 scroll-mt-28 text-4xl font-bold tracking-[-0.02em] text-slate-50"
         {...props}
       >
         {children}
@@ -14,7 +14,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     h2: ({ children, ...props }) => (
       <h2
-        className="font-heading-learn mb-4 mt-12 scroll-mt-28 border-b border-white/10 pb-3 text-2xl font-semibold tracking-tight text-violet-400 first:mt-0"
+        className="font-heading-learn mb-6 mt-14 scroll-mt-28 border-b border-white/10 pb-3 text-2xl font-semibold tracking-tight text-violet-400 first:mt-0"
         {...props}
       >
         {children}
@@ -22,7 +22,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     h3: ({ children, ...props }) => (
       <h3
-        className="font-heading-learn mb-3 mt-8 scroll-mt-28 text-lg font-semibold text-slate-100"
+        className="font-heading-learn mb-4 mt-10 scroll-mt-28 text-lg font-semibold text-slate-100"
         {...props}
       >
         {children}
@@ -32,7 +32,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <p
         {...props}
         className={cn(
-          "mb-4 text-base leading-[1.6] text-slate-400",
+          "mb-5 text-base leading-[1.6] text-slate-400",
           className,
         )}
       >
@@ -41,7 +41,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     ul: ({ children, ...props }) => (
       <ul
-        className="mb-4 list-disc space-y-2 pl-6 text-base leading-[1.6] text-slate-400"
+        className="mb-6 list-disc space-y-2.5 pl-6 text-base leading-[1.6] text-slate-400"
         {...props}
       >
         {children}
@@ -49,7 +49,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     ol: ({ children, ...props }) => (
       <ol
-        className="mb-4 list-decimal space-y-2 pl-6 text-base leading-[1.6] text-slate-400"
+        className="mb-6 list-decimal space-y-2.5 pl-6 text-base leading-[1.6] text-slate-400"
         {...props}
       >
         {children}
@@ -94,7 +94,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     },
     pre: ({ children, ...props }) => (
       <pre
-        className="font-mono-learn mb-6 overflow-x-auto rounded-xl border border-white/10 bg-[#0d0d14] p-4 text-sm leading-relaxed text-slate-300 shadow-xl shadow-slate-950/50 ring-1 ring-inset ring-white/5"
+        className="font-mono-learn mb-8 overflow-x-auto rounded-xl border border-white/10 bg-[#0d0d14] p-4 text-sm leading-relaxed text-slate-300 shadow-xl shadow-slate-950/50 ring-1 ring-inset ring-white/5"
         {...props}
       >
         {children}
@@ -102,7 +102,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     blockquote: ({ children, ...props }) => (
       <blockquote
-        className="mb-6 border-l-4 border-violet-500/50 bg-violet-500/5 py-2 pl-4 pr-4 text-slate-400"
+        className="mb-8 border-l-4 border-violet-500/50 bg-violet-500/5 py-3 pl-4 pr-4 text-slate-400"
         {...props}
       >
         {children}
