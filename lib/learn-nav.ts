@@ -43,6 +43,21 @@ export const LEARN_LESSONS: LessonEntry[] = [
     ],
   },
   {
+    href: "/learn/call-stack",
+    label: "Call stack & phases",
+    description:
+      "Creation vs execution phases, invocations, and how the engine pushes and pops execution contexts on the call stack.",
+    toc: [
+      { id: "when-script-runs", label: "What happens when a script runs" },
+      { id: "memory-creation-phase", label: "Phase 1: memory creation" },
+      { id: "code-execution-phase", label: "Phase 2: code execution" },
+      { id: "invocation", label: "Function invocation" },
+      { id: "return", label: "return and teardown" },
+      { id: "call-stack", label: "The call stack" },
+      { id: "recap", label: "Recap" },
+    ],
+  },
+  {
     href: "/learn/event-loop",
     label: "Event Loop",
     description: "Call stack, tasks, microtasks, and how async work fits in.",

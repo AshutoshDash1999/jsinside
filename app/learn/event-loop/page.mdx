@@ -4,6 +4,16 @@ export const metadata = {
   title: "Event Loop",
   description:
     "How the JavaScript runtime schedules work across the call stack, task queues, and browser APIs.",
+  openGraph: {
+    title: "Event Loop · JSInside",
+    description:
+      "How the JavaScript runtime schedules work across the call stack, task queues, and browser APIs.",
+  },
+  twitter: {
+    title: "Event Loop · JSInside",
+    description:
+      "How the JavaScript runtime schedules work across the call stack, task queues, and browser APIs.",
+  },
 }
 
 # The event loop
@@ -55,10 +65,10 @@ drain next, and the macrotask queue runs after.
       <h3 className="font-heading-learn text-base font-semibold text-emerald-400">
         Non-blocking I/O
       </h3>
-      <p className="mt-2 text-sm leading-relaxed text-slate-400">
+      <div className="mt-2 text-sm leading-relaxed text-slate-400">
         Network and disk work are delegated to the host. When results arrive, callbacks
         are queued—your main thread keeps parsing and rendering.
-      </p>
+      </div>
     </div>
   </div>
   <div className="rounded-xl bg-gradient-to-br from-violet-500/25 to-emerald-500/10 p-px shadow-lg shadow-slate-950/40">
@@ -66,10 +76,10 @@ drain next, and the macrotask queue runs after.
       <h3 className="font-heading-learn text-base font-semibold text-violet-400">
         Task prioritization
       </h3>
-      <p className="mt-2 text-sm leading-relaxed text-slate-400">
+      <div className="mt-2 text-sm leading-relaxed text-slate-400">
         Microtasks starve macrotasks if enqueued in a loop—always yield for long chains.
         Browsers may also interleave rendering for responsiveness.
-      </p>
+      </div>
     </div>
   </div>
 </div>

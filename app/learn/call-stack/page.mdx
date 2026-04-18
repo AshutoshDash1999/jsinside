@@ -1,0 +1,100 @@
+import Link from "next/link"
+
+import { CallStackEcVisual } from "@/app/learn/_components/call-stack-ec-visual"
+import { FunctionCallEcVisual } from "@/app/learn/_components/function-call-ec-visual"
+import { GecPhasesVisual } from "@/app/learn/_components/gec-phases-visual"
+
+export const metadata = {
+  title: "Call stack & phases",
+  description:
+    "Memory creation vs code execution, function invocations, and how the call stack orders execution contexts.",
+  openGraph: {
+    title: "Call stack & phases · JSInside",
+    description:
+      "Memory creation vs code execution, function invocations, and how the call stack orders execution contexts.",
+  },
+  twitter: {
+    title: "Call stack & phases · JSInside",
+    description:
+      "Memory creation vs code execution, function invocations, and how the call stack orders execution contexts.",
+  },
+}
+
+# Call stack & phases
+
+You already know an [**execution context**](/learn/execution-context) is the “box” where
+bindings live and code runs. This page shows **how the engine builds that box** in two
+stages, what happens when you **call a function**, and how the **call stack** keeps the
+order straight when contexts nest.
+
+<h2 id="when-script-runs">What happens when a script runs</h2>
+
+As soon as the runtime begins executing a file or `<script>` body, it creates a **global
+execution context (GEC)**. Conceptually it still has the same two parts as everywhere
+else: a **memory** (variable environment) for names and values, and **code** that runs
+one line at a time.
+
+Nothing in your source executes until those setup rules have run.
+
+<h2 id="memory-creation-phase">Phase 1: memory creation</h2>
+
+First comes the **memory creation** phase (sometimes described as hoisting for `var` and
+`function` declarations). The engine walks the program and **declares** bindings:
+
+- For **`var`** identifiers it reserves a slot and sets the value to **`undefined`**
+  until an assignment runs later.
+- For **`function` declarations** it stores a reference to the callable — the body is
+  known up front, so the name resolves immediately.
+
+`let` and `const` follow different rules (temporal dead zone); this lesson sticks to
+`var` + **`function`** so the “placeholder then assign” story matches the classic model.
+
+<GecPhasesVisual />
+
+<h2 id="code-execution-phase">Phase 2: code execution</h2>
+
+In the **code execution** phase the engine runs top to bottom. Assignments replace
+`undefined` with real values. A **`function` declaration line** does not do extra work at
+this point — the binding was already created in phase 1.
+
+When the line `var square2 = square(n)` runs, the **call** on the right-hand side
+executes before the global binding for `square2` can receive a value.
+
+<h2 id="invocation">Function invocation</h2>
+
+Each time you use `()` after a function, that **invocation** gets a **new** execution
+context. The **parameter** (for example `num`) is a local binding; the **argument**
+(`n`, or the literal `4`) is the value provided at the call site.
+
+<FunctionCallEcVisual />
+
+<h2 id="return">`return` and teardown</h2>
+
+The **`return`** expression hands a value back to wherever the call was evaluated and ends
+that invocation’s execution context. The local environment for that call goes away;
+only values that were returned (or written to outer scopes you still have access to)
+remain visible afterwards.
+
+<h2 id="call-stack">The call stack</h2>
+
+When many contexts are active, the engine tracks them with a **stack**: the global
+context is at the **bottom**, and each nested call **pushes** a frame on **top**. When a
+function **returns**, its frame is **popped**, and control resumes in the caller.
+
+That same structure is what people mean when they say **execution context stack**,
+**program stack**, or **runtime stack** — one idea, several names.
+
+<CallStackEcVisual />
+
+<h2 id="recap">Recap</h2>
+
+- The GEC is created in **two phases**: memory creation (bindings + `undefined` /
+  function refs), then **code execution** (assignments and calls in order).
+- Each **function call** allocates a **new** context with its own locals and parameters.
+- **`return`** passes a value outward and **discards** that invocation’s context.
+- The **call stack** is how the engine **orders** nested contexts (push on call, pop on
+  return).
+
+> **Before:** [Execution context](/learn/execution-context) — the container model.  
+> **Next:** [Event loop](/learn/event-loop) — how work is scheduled once synchronous
+> code finishes and the stack can empty.

@@ -1,12 +1,25 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 
 import { LEARN_TOPICS } from "@/lib/learn-nav"
 import { cn } from "@/lib/utils"
 
-export const metadata = {
-  title: "Learn",
-  description:
-    "Curriculum for mastering JavaScript internals — execution, async, and the runtime.",
+const title = "Learn"
+
+const description =
+  "Curriculum for mastering JavaScript internals — execution, async, and the runtime."
+
+export const metadata: Metadata = {
+  title,
+  description,
+  openGraph: {
+    title: `${title} · JSInside`,
+    description,
+  },
+  twitter: {
+    title: `${title} · JSInside`,
+    description,
+  },
 }
 
 export default function LearnIndexPage() {

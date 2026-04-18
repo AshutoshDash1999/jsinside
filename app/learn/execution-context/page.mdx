@@ -7,6 +7,16 @@ export const metadata = {
   title: "Execution Context",
   description:
     "How the engine wraps your code in an execution context: variable environment and thread of execution.",
+  openGraph: {
+    title: "Execution Context · JSInside",
+    description:
+      "How the engine wraps your code in an execution context: variable environment and thread of execution.",
+  },
+  twitter: {
+    title: "Execution Context · JSInside",
+    description:
+      "How the engine wraps your code in an execution context: variable environment and thread of execution.",
+  },
 }
 
 # Execution context
@@ -78,14 +88,24 @@ That is covered in detail in{" "}
   your source line-by-line model.
 
 <blockquote className="not-prose border-l-4 border-violet-500/50 bg-violet-500/5 py-2 pl-4 pr-4 text-slate-400">
-  <p className="mb-0">
-    <strong className="text-slate-300">Next:</strong> continue to{" "}
+  <div className="mb-0 text-base leading-[1.6]">
+    <strong className="text-slate-300">Next:</strong>{" "}
+    <Link
+      className="font-medium text-violet-400 underline decoration-violet-500/40 underline-offset-4 hover:text-violet-300"
+      href="/learn/call-stack"
+    >
+      Call stack &amp; phases
+    </Link>
+    {" "}
+    — memory creation vs execution, invocations, and how frames are pushed and popped.
+    Then continue to{" "}
     <Link
       className="font-medium text-violet-400 underline decoration-violet-500/40 underline-offset-4 hover:text-violet-300"
       href="/learn/event-loop"
     >
       Event Loop
     </Link>
-    {" "}— how the runtime schedules work after your synchronous code finishes.
-  </p>
+    {" "}
+    for scheduling after synchronous code finishes.
+  </div>
 </blockquote>

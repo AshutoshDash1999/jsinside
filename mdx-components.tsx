@@ -1,5 +1,7 @@
 import type { MDXComponents } from "mdx/types"
 
+import { cn } from "@/lib/utils"
+
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: ({ children, ...props }) => (
@@ -26,8 +28,14 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </h3>
     ),
-    p: ({ children, ...props }) => (
-      <p className="mb-4 text-base leading-[1.6] text-slate-400" {...props}>
+    p: ({ children, className, ...props }) => (
+      <p
+        {...props}
+        className={cn(
+          "mb-4 text-base leading-[1.6] text-slate-400",
+          className,
+        )}
+      >
         {children}
       </p>
     ),
