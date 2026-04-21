@@ -58,6 +58,20 @@ export const LEARN_LESSONS: LessonEntry[] = [
     ],
   },
   {
+    href: "/learn/hoisting",
+    label: "Hoisting",
+    description:
+      "Creation-phase bindings, var vs function declarations, undefined vs not defined, and function expressions.",
+    toc: [
+      { id: "what-hoisting-is", label: "What hoisting is" },
+      { id: "creation-phase-bindings", label: "Creation phase & bindings" },
+      { id: "undefined-vs-not-defined", label: "undefined vs not defined" },
+      { id: "log-vs-call", label: "Logging vs calling" },
+      { id: "declarations-vs-expressions", label: "Declarations vs expressions" },
+      { id: "recap", label: "Recap" },
+    ],
+  },
+  {
     href: "/learn/event-loop",
     label: "Event Loop",
     description: "Call stack, tasks, microtasks, and how async work fits in.",

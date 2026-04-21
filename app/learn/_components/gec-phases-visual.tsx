@@ -3,6 +3,10 @@
 import { motion, useReducedMotion } from "motion/react"
 import { useMemo } from "react"
 
+import {
+  AnimatedConnectorPath,
+  buildCurvedConnectorPath,
+} from "@/app/learn/_components/animated-connector-path"
 import { LearnAnimationFrame } from "@/app/learn/_components/learn-animation-frame"
 
 type MemoryRow = { key: string; value: string }
@@ -261,13 +265,9 @@ export function GecPhasesVisual() {
               )
             })}
 
-            <path
-              d="M 220 120 L 236 120"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              className="text-slate-600 opacity-70"
-              strokeDasharray="4 3"
+            <AnimatedConnectorPath
+              d={buildCurvedConnectorPath(220, 120, 236, 120)}
+              stepKey={stepIndex}
             />
           </svg>
         )

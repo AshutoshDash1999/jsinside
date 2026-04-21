@@ -1,0 +1,144 @@
+import {
+  HoistingExpressionVisual,
+  HoistingLogVsCallVisual,
+  HoistingNotDefinedVisual,
+  HoistingPhasesVisual,
+} from "@/app/learn/_components/hoisting-visual"
+
+export const metadata = {
+  title: "Hoisting",
+  description:
+    "How the creation phase sets up var and function declarations, why undefined is not “not defined,” and how function expressions differ.",
+  openGraph: {
+    title: "Hoisting · JSInside",
+    description:
+      "How the creation phase sets up var and function declarations, why undefined is not “not defined,” and how function expressions differ.",
+  },
+  twitter: {
+    title: "Hoisting · JSInside",
+    description:
+      "How the creation phase sets up var and function declarations, why undefined is not “not defined,” and how function expressions differ.",
+  },
+}
+
+# Hoisting
+
+This lesson zooms in on a behavior people often call **hoisting**: you can **run** code that
+references `var` bindings and `function` declarations that appear *later* in the source
+file, without a parse error. The engine is not “moving lines to the top” in your editor —
+it is using the two-phase model you already met in
+[**Execution context**](/learn/execution-context) and
+[**Call stack & phases**](/learn/call-stack).
+
+The examples below use **`var`** and **`function` declarations** so the same mental model
+matches the classic “creation phase + code execution” story. `let` and `const` have a
+separate `Temporal Dead Zone` story; you can look that up after this page.
+
+<h2 id="what-hoisting-is">What hoisting is</h2>
+
+**Hoisting** (informal name) is what you observe when the **memory-creation** phase of an
+execution context has already **registered** names before any line of the script’s
+**execution** phase runs.
+
+- The proper interview answer: bindings are set up in the **first phase**; assignments and
+  calls run in the **second phase**. That is the mechanism — not a literal cut-and-paste
+  of your file.
+
+<h2 id="creation-phase-bindings">Creation phase & bindings</h2>
+
+For a **global** script (a classic top-level `var` and `function` flow):
+
+- **`var x`**: the name `x` exists in the environment for that context, and its value
+  **starts** as the placeholder **`undefined`** until an assignment runs in the code phase.
+- **`function getName() { ... }`**: the name `getName` is bound to the **actual function
+  value** (the callable) during creation, not to `undefined`.
+
+So *before* the first line of your program executes, the engine can already find `getName` as
+a function, while `x` is “here but empty” — that is `undefined`.
+
+<HoistingPhasesVisual />
+
+The diagram uses **reordered** lines to match the “invoke first, declare later” demo: the
+important point is the **state of memory at the end of creation**, not the order of lines
+in your real file. If you place `getName()` and `console.log(x)` *above* `var x` and
+`function getName`, the same creation-phase table applies, then the execution phase runs
+top to bottom.
+
+**Typical output** when the call and log run before the assignment:
+
+- The log from inside `getName` (e.g. “Namaste JavaScript”).
+- Then `console.log(x)` prints **`undefined`**, because `var x = 7` has not run yet.
+- After `var x = 7` runs, `x` is `7` for any later use.
+
+<h2 id="undefined-vs-not-defined">undefined vs not defined</h2>
+
+**`undefined`** (the value) means: a **binding exists** in the current environment, but no
+value has been assigned yet (for `var`) or the variable is in an allowed but “empty” state.
+
+**`ReferenceError: x is not defined`** (what engines say for a missing **binding**) means:
+there is **no** `x` in the relevant scope at all — for example, you **removed** the `var
+x` line and never declared `x` in any other way. That is **not** the same as `undefined`.
+
+In short: **`undefined` = name exists; not defined = name does not exist in scope.**
+
+```js
+// Binding exists, no assignment yet → undefined
+var x
+console.log(x) // undefined
+
+// No binding at all → ReferenceError
+console.log(missing) // ReferenceError in strict/global lookup rules
+```
+
+<HoistingNotDefinedVisual />
+
+<h2 id="log-vs-call">Logging vs calling</h2>
+
+With a **function declaration** name that was fully set up in the creation phase:
+
+- **`console.log(getName)`** logs the function value itself (its source or engine-specific
+  representation), because `getName` already **resolves** to the function.
+- **`console.log(x)`** with only `var x` above it logs **`undefined`**, for the same reason
+  as any other pre-assignment use of that `var`.
+
+So both names are “visible” after creation, but one holds a **function object** and the
+other holds the **`undefined`** placeholder until the assignment line runs.
+
+<HoistingLogVsCallVisual />
+
+<h2 id="declarations-vs-expressions">Declarations vs expressions</h2>
+
+A **function expression** (and an **arrow function** assigned to a variable) is a **variable
+binding** first: it behaves like `var` / `let` / `const` for **when** the name points at a
+callable.
+
+- **`function getName() { }`** — the **declaration** form: the name is fully wired to the
+  function in the **creation** phase of that scope.
+- **`var getName = () => { }`** or **`var getName = function () { }`** — the name is created
+  like a `var` in creation (**`undefined`** first), and only **after** the assignment line
+  runs does `getName` become a function.
+
+If you call **`getName()`** before that assignment line, the binding is still **`undefined`**
+in the `var` case — the call fails with a “not a function” style error. With **`let`** /
+**`const`**, you hit the **temporal dead zone** instead, so you get a `ReferenceError` for
+the name even before you talk about it being a function. This page stays with **`var`**
+for the parallel to the `undefined` table.
+
+**Function expressions** and **arrow functions** attached to a property follow the same
+**assignment-time** story: the property is not a `function` declaration, so you do not get
+the “full function in creation phase on that name” effect.
+
+<HoistingExpressionVisual />
+
+<h2 id="recap">Recap</h2>
+
+- **Hoisting** in conversation usually means: **names are registered in the creation
+  phase** before the **code execution** phase runs line by line.
+- **`var`**: name exists, value **`undefined`** until the assignment.
+- **`function` declaration**: name is the **function** in creation **phase**.
+- **Function expression / arrow** assigned to a name: the name starts like a **variable** (for
+  `var`, **`undefined`** until the assignment line; for `let`/`const`, TDZ applies).
+- **`undefined`** = binding is there; **not defined (ReferenceError)** = no binding in scope.
+
+> **Before:** [Call stack & phases](/learn/call-stack) — creation vs execution, invocations, stack.  
+> **Next:** [Event loop](/learn/event-loop) — how async and tasks interact once synchronous code finishes.

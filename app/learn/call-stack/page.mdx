@@ -1,5 +1,3 @@
-import Link from "next/link"
-
 import { CallStackEcVisual } from "@/app/learn/_components/call-stack-ec-visual"
 import { FunctionCallEcVisual } from "@/app/learn/_components/function-call-ec-visual"
 import { GecPhasesVisual } from "@/app/learn/_components/gec-phases-visual"
@@ -45,6 +43,10 @@ First comes the **memory creation** phase (sometimes described as hoisting for `
   until an assignment runs later.
 - For **`function` declarations** it stores a reference to the callable — the body is
   known up front, so the name resolves immediately.
+
+For a dedicated look at `var` vs `function` vs function expressions, how that feels at
+**runtime**, and the difference between **`undefined`** and **not defined**, see
+[Hoisting](/learn/hoisting).
 
 `let` and `const` follow different rules (temporal dead zone); this lesson sticks to
 `var` + **`function`** so the “placeholder then assign” story matches the classic model.
@@ -96,5 +98,5 @@ That same structure is what people mean when they say **execution context stack*
   return).
 
 > **Before:** [Execution context](/learn/execution-context) — the container model.  
-> **Next:** [Event loop](/learn/event-loop) — how work is scheduled once synchronous
-> code finishes and the stack can empty.
+> **Next:** [Hoisting](/learn/hoisting) — `var` / `function` declarations, undefined vs
+> not defined, and function expressions.
