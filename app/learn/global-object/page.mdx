@@ -1,0 +1,122 @@
+import { GlobalObjectPlayer } from "@/app/learn/_components/global-object-player"
+
+export const metadata = {
+  title: "The Shortest JS Program",
+  description:
+    "What happens when the JavaScript engine runs an empty file. Even with no code, it creates a global object, the this keyword, and a Global Execution Context.",
+  openGraph: {
+    title: "The Shortest JS Program",
+    description:
+      "What happens when the JavaScript engine runs an empty file. Even with no code, it creates a global object, the this keyword, and a Global Execution Context.",
+  },
+  twitter: {
+    title: "The Shortest JS Program",
+    description:
+      "What happens when the JavaScript engine runs an empty file. Even with no code, it creates a global object, the this keyword, and a Global Execution Context.",
+  },
+}
+
+# The Shortest JS Program
+
+What happens when you run the shortest possible JavaScript program—an empty file? It turns out, the JavaScript engine does quite a bit.
+
+<h2 id="what-happens">What happens when JS runs?</h2>
+
+When the JavaScript engine starts executing your code, it doesn't start with a blank slate. Even an empty file triggers a series of automatic setup steps. The engine needs to establish a runtime environment before any code runs.
+
+This environment is called the **Global Execution Context**. It's the foundation that makes everything else possible.
+
+<h2 id="global-execution-context">Global Execution Context</h2>
+
+The **Global Execution Context** (GEC) is created the moment the JavaScript engine starts running. It comes with two main components:
+
+1. **A global object** — The engine allocates memory for a special object that will hold global variables, functions, and built-in utilities.
+2. **The `this` keyword** — The engine also creates a reference called `this`. At the global level, `this` always points to the global object.
+
+These two components are created automatically, even if your code is empty.
+
+<h2 id="window-object">The global object (`window`)</h2>
+
+The global object is different depending on where your JavaScript runs:
+
+- **In a browser**, the global object is called `window`.
+- **In Node.js**, the global object is called `global`.
+
+In the browser, the `window` object isn't empty. It contains hundreds of built-in properties and methods that your code can use:
+
+- `console` — for logging
+- `setTimeout` — for delays
+- `document` — the DOM
+- `location` — URL info
+- `fetch` — for network requests
+- ...and many more
+
+All of these are properties of the `window` object.
+
+<GlobalObjectPlayer />
+
+<h2 id="this-at-global">At global scope, `this` === `window`</h2>
+
+At the global level (outside of any function), the `this` keyword always refers to the global object.
+
+In a browser:
+
+```javascript
+console.log(this) // → window object
+console.log(this === window) // → true
+```
+
+In Node.js:
+
+```javascript
+console.log(this) // → global object (actually Module.exports, but conceptually 'global')
+console.log(this === global) // → true (in most contexts)
+```
+
+This is a fundamental behavior: **the engine ensures that `this` at the global level always points to the global object**.
+
+<h2 id="auto-attach">Everything global attaches to `window`</h2>
+
+When you declare a variable or function at the global level (not inside a function), the JavaScript engine automatically attaches it to the global object.
+
+For example:
+
+```javascript
+var name = "Akshay"
+function greet() {
+  console.log("Hello")
+}
+
+console.log(window.name) // → "Akshay"
+console.log(window.greet) // → ƒ greet() { ... }
+console.log(name) // → "Akshay" (also works)
+console.log(greet) // → ƒ greet() { ... } (also works)
+```
+
+Because global variables and functions are properties of `window`, you can access them two ways:
+
+- **By name:** `name`, `greet()`
+- **Via the global object:** `window.name`, `window.greet()`
+
+Both are equivalent. The engine adds them to `window` automatically.
+
+<h2 id="browser-vs-node">Browser vs other environments</h2>
+
+The concept is universal across all JavaScript environments:
+
+- **Browser:** Global object is `window`
+- **Node.js:** Global object is `global`
+- **Web Workers:** Global object is `self`
+
+What changes is the name and the built-in properties available, but the principle is the same. Every JavaScript engine creates a global object and binds `this` to it at the global level.
+
+<h2 id="recap">Recap</h2>
+
+- Even an empty JavaScript file triggers the engine to create a **Global Execution Context**.
+- The GEC includes a **global object** and the **`this` keyword**.
+- In browsers, the global object is `window`. In Node.js, it's `global`.
+- At global scope, `this` always points to the global object.
+- Any variable or function declared globally is automatically a property of the global object.
+- You can access global items either by name or via the global object (`window.x` or just `x`).
+
+This foundation—the global object and execution context—is what makes scoping, variable lookup, and function invocation work. Understanding it is key to mastering JavaScript internals.

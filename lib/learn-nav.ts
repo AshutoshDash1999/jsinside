@@ -85,6 +85,21 @@ export const LEARN_LESSONS: LessonEntry[] = [
     ],
   },
   {
+    href: "/learn/global-object",
+    label: "The Shortest JS Program",
+    description:
+      "Even an empty file triggers the engine to create a global object (window), set up this, and build a Global Execution Context.",
+    toc: [
+      { id: "what-happens", label: "What happens when JS runs?" },
+      { id: "global-execution-context", label: "Global Execution Context" },
+      { id: "window-object", label: "The global object (window)" },
+      { id: "this-at-global", label: "this at global scope" },
+      { id: "auto-attach", label: "Everything global attaches to window" },
+      { id: "browser-vs-node", label: "Browser vs other environments" },
+      { id: "recap", label: "Recap" },
+    ],
+  },
+  {
     href: "/learn/event-loop",
     label: "Event Loop",
     description: "Call stack, tasks, microtasks, and how async work fits in.",
