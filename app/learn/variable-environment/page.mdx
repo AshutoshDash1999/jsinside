@@ -1,0 +1,99 @@
+import {
+  InvocationVariableEnvironmentVisual,
+  SameNameThreeSlotsVisual,
+} from "@/app/learn/_components/invocation-variable-environment-visual"
+
+export const metadata = {
+  title: "Variable environment & invocation",
+  description:
+    "How each function call gets its own variable environment, why the same name can hold different values, and how the call stack orders nested runs.",
+  openGraph: {
+    title: "Variable environment & invocation · JSInside",
+    description:
+      "How each function call gets its own variable environment, why the same name can hold different values, and how the call stack orders nested runs.",
+  },
+  twitter: {
+    title: "Variable environment & invocation · JSInside",
+    description:
+      "How each function call gets its own variable environment, why the same name can hold different values, and how the call stack orders nested runs.",
+  },
+}
+
+# Variable environment & invocation
+
+You already know the engine uses a [global execution context](/learn/execution-context),
+[moves through creation then execution](/learn/call-stack), and that [hoisting](/learn/hoisting)
+makes `var` and `function` bindings visible before the lines that assign them. This page ties
+that together with **function invocation**: what happens when **the same identifier** (here,
+`x`) appears in **global** code and **inside** multiple functions.
+
+<h2 id="one-name-many-bindings">One identifier, many bindings</h2>
+
+Each **execution context** has its own **variable environment** (memory). A new **invocation**
+allocates a **new** local environment. Reusing the name `x` in `a`, in `b`, and at the top
+level does **not** create a single shared box — you get **separate** bindings that happen to
+**shadow** the outer name while that function runs.
+
+<SameNameThreeSlotsVisual />
+
+<h2 id="the-program">The program</h2>
+
+This is the classic “Namaste style” example: global `x`, two functions that each declare
+their own `var x`, then calls and a final global log. With **`var`** and **`function`**
+declarations, the story matches the two-phase model from earlier lessons (lexical scoping
+with `let` / `const` is stricter, but the **per-invocation memory** idea is the same).
+
+```text
+var x = 1
+function a() {
+  var x = 10
+  console.log(x)
+}
+function b() {
+  var x = 100
+  console.log(x)
+}
+a()
+b()
+console.log(x)
+```
+
+**Console output:** `10`, then `100`, then `1`. The middle line surprises people who expect
+“the” `x` to keep updating — but each **`console.log`** looks up `x` in the **active**
+context’s environment first.
+
+<h2 id="walkthrough">What happens, step by step</h2>
+
+- After the **global** creation phase, `x` is `undefined` and `a` / `b` refer to callables
+  (see [Hoisting](/learn/hoisting) if you need that picture).
+- `x = 1` only touches **global** memory.
+- Calling **`a()`** creates a **new** context: a **local** `x` (again starting as
+  `undefined` in the local creation phase) is **not** the same slot as global `x`. Assigning
+  `10` and logging prints **10**.
+- When **`a`** returns, that **entire** local environment is **discarded** — the global
+  `x` was **1** the whole time.
+- **`b()`** repeats the pattern with a **fresh** local `x`, hence **100** in the log.
+- The last `console.log(x)` runs in **global** code, so it reads **global** `x` → **1**.
+
+<InvocationVariableEnvironmentVisual />
+
+<h2 id="call-stack-again">Call stack, briefly</h2>
+
+While `a` or `b` runs, the [call stack](/learn/call-stack) holds the **global** frame
+underneath a **function** frame. Finishing a function **pops** the top frame; the engine
+resumes the **call site** in the outer context. Nothing in the inner log rewrites the
+outer binding unless you **assign to** a name the outer scope actually owns (or use
+closures — a later topic).
+
+<h2 id="recap">Recap</h2>
+
+- Every **invocation** gets its own **execution context** and its own **variable
+  environment**.
+- The **same spelling** of an identifier in an inner `var` binding is a **different**
+  **binding** from the global one — it **shadows** the outer name for lookups inside
+  that function.
+- **Lookup** starts in the **current** environment; that is why logs show **10**, **100**,
+  then **1**, not a single running total.
+
+> **Next:** [Event loop](/learn/event-loop) — how async work and the call stack interact
+> at a higher level.

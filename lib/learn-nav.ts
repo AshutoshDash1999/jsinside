@@ -72,6 +72,19 @@ export const LEARN_LESSONS: LessonEntry[] = [
     ],
   },
   {
+    href: "/learn/variable-environment",
+    label: "Variable environment & invocation",
+    description:
+      "Same name in global vs function code: per-call memory, shadowing, call stack, and console order 10 · 100 · 1.",
+    toc: [
+      { id: "one-name-many-bindings", label: "One name, many bindings" },
+      { id: "the-program", label: "The program" },
+      { id: "walkthrough", label: "Step-by-step" },
+      { id: "call-stack-again", label: "Call stack" },
+      { id: "recap", label: "Recap" },
+    ],
+  },
+  {
     href: "/learn/event-loop",
     label: "Event Loop",
     description: "Call stack, tasks, microtasks, and how async work fits in.",
