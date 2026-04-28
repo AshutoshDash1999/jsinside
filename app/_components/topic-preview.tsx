@@ -1,3 +1,5 @@
+"use client"
+
 import {
   IconAffiliate,
   IconArrowBigUpLines,
@@ -11,12 +13,9 @@ import {
   TopicTileIllustration,
   type TopicTileId,
 } from "@/app/_components/bento-tile-art"
+import { ScrollReveal } from "@/components/ui/scroll-reveal"
 import { cn } from "@/lib/utils"
 
-/**
- * Same 4-column bento as FeatureGrid: hero 2×2, top-right 2×1,
- * two 1×1s, then two full-width half tiles on row 3.
- */
 const topics: {
   id: TopicTileId
   title: string
@@ -33,7 +32,7 @@ const topics: {
     icon: IconLayersLinked,
     gridClass: "md:col-span-2 md:row-span-2 md:min-h-52",
     titleClass: "md:text-xl",
-    iconClass: "text-rose-400",
+    iconClass: "text-rose-600",
   },
   {
     id: "promises",
@@ -42,7 +41,7 @@ const topics: {
     icon: IconBolt,
     gridClass: "md:col-span-2 md:row-span-1",
     titleClass: "",
-    iconClass: "text-fuchsia-400",
+    iconClass: "text-fuchsia-600",
   },
   {
     id: "hoisting",
@@ -51,7 +50,7 @@ const topics: {
     icon: IconArrowBigUpLines,
     gridClass: "md:col-span-1 md:row-span-1",
     titleClass: "",
-    iconClass: "text-lime-400",
+    iconClass: "text-lime-700",
   },
   {
     id: "prototypes",
@@ -60,7 +59,7 @@ const topics: {
     icon: IconAffiliate,
     gridClass: "md:col-span-1 md:row-span-1",
     titleClass: "",
-    iconClass: "text-teal-400",
+    iconClass: "text-teal-600",
   },
   {
     id: "event-loop",
@@ -70,7 +69,7 @@ const topics: {
     icon: IconRefresh,
     gridClass: "md:col-span-2 md:row-span-1",
     titleClass: "",
-    iconClass: "text-cyan-400",
+    iconClass: "text-sky-600",
   },
   {
     id: "modules",
@@ -79,17 +78,9 @@ const topics: {
     icon: IconPackages,
     gridClass: "md:col-span-2 md:row-span-1",
     titleClass: "",
-    iconClass: "text-indigo-400",
+    iconClass: "text-indigo-600",
   },
 ]
-
-const topicCardMotion =
-  "transform-gpu transition duration-300 ease-out will-change-transform group-hover/topic:-translate-y-1 group-hover/topic:shadow-xl group-hover/topic:shadow-violet-500/15 group-hover/topic:border-white/15 group-hover/topic:bg-white/10 group-active/topic:translate-y-0"
-
-const cardBase = cn(
-  "flex h-full min-h-0 flex-col gap-3 rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur-md transition-colors",
-  topicCardMotion,
-)
 
 export function TopicPreview() {
   return (
@@ -98,44 +89,58 @@ export function TopicPreview() {
       className="scroll-mt-24 py-20 md:py-24 lg:py-32"
       aria-labelledby="topics-heading"
     >
-      <div className="mx-auto max-w-7xl px-4 md:px-6">
-        <h2
-          id="topics-heading"
-          className="mb-4 text-center text-3xl font-bold tracking-tight text-slate-50 md:text-4xl"
-        >
-          Core concepts
-        </h2>
-        <p className="mx-auto mb-12 max-w-2xl text-center text-base leading-relaxed text-slate-400">
-          Six short paths into the ideas that power modern JavaScript—each with a
-          clear mental model.
-        </p>
-        <ul className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-4 md:auto-rows-fr">
-          {topics.map(
-            ({ id, title, description, icon: Icon, gridClass, titleClass, iconClass }) => (
-              <li key={id} className={cn("group/topic min-h-0", gridClass)}>
-                <div className={cardBase}>
+      <div className="mx-auto max-w-7xl px-6 md:px-10">
+        <ScrollReveal>
+          <h2
+            id="topics-heading"
+            className="mb-3 font-display text-3xl font-black tracking-tight text-[oklch(0.18_0.025_60)] md:text-4xl"
+          >
+            Core concepts
+          </h2>
+        </ScrollReveal>
+        <ScrollReveal delay={0.08}>
+          <p className="mb-12 max-w-xl font-body text-base leading-relaxed text-[oklch(0.50_0.03_60)]">
+            Six short paths into the ideas that power modern JavaScript — each with a
+            clear mental model.
+          </p>
+        </ScrollReveal>
+
+        <ul className="grid grid-cols-1 gap-3 md:auto-rows-fr md:grid-cols-4 md:gap-3">
+          {topics.map(({ id, title, description, icon: Icon, gridClass, titleClass, iconClass }, i) => (
+            <ScrollReveal
+              key={id}
+              delay={i * 0.07}
+              className={cn("group/topic min-h-0", gridClass)}
+            >
+              <li className="h-full">
+                <div
+                  className={cn(
+                    "flex h-full min-h-0 flex-col gap-3 rounded-xl border border-[oklch(0.87_0.015_85)] bg-[oklch(0.97_0.015_85)] p-5",
+                    "transform-gpu transition duration-300 ease-out will-change-transform",
+                    "hover:-translate-y-1 hover:border-[oklch(0.82_0.02_85)] hover:shadow-lg hover:shadow-stone-200/80",
+                    "active:translate-y-0",
+                  )}
+                >
                   <div className="shrink-0 space-y-2">
                     <div className="flex items-start gap-3">
                       <Icon
                         className={cn("size-5 shrink-0 md:mt-0.5", iconClass)}
-                        stroke={2}
+                        stroke={1.75}
                         aria-hidden
                       />
-                      <h3
-                        className={cn("font-semibold text-slate-50", titleClass)}
-                      >
+                      <h3 className={cn("font-display font-bold text-[oklch(0.18_0.025_60)]", titleClass)}>
                         {title}
                       </h3>
                     </div>
-                    <p className="text-sm leading-relaxed text-slate-400">
+                    <p className="font-body text-sm leading-relaxed text-[oklch(0.50_0.03_60)]">
                       {description}
                     </p>
                   </div>
                   <TopicTileIllustration id={id} />
                 </div>
               </li>
-            ),
-          )}
+            </ScrollReveal>
+          ))}
         </ul>
       </div>
     </section>

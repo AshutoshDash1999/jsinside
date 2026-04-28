@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next"
-import { Nunito } from "next/font/google"
+import { Fraunces, Lora, Nunito } from "next/font/google"
 
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
@@ -9,9 +9,22 @@ import "./globals.css"
 const nunito = Nunito({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
 })
 
-// Replace with your production URL when deploying.
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-display",
+  axes: ["opsz"],
+  display: "swap",
+})
+
+const lora = Lora({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+})
+
 const siteUrl = new URL(
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://jsinside.vercel.app"
 )
@@ -57,8 +70,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#020617",
-  colorScheme: "dark",
+  themeColor: "#f5efe8",
+  colorScheme: "light dark",
 }
 
 export default function RootLayout({
@@ -70,15 +83,20 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("dark antialiased", nunito.variable, "font-sans")}
+      className={cn(
+        "antialiased",
+        nunito.variable,
+        fraunces.variable,
+        lora.variable,
+        "font-sans",
+      )}
     >
       <body className="min-h-svh bg-background">
         <Analytics />
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          forcedTheme="dark"
+          defaultTheme="light"
+          enableSystem
           disableTransitionOnChange
         >
           {children}

@@ -4,7 +4,12 @@
       "Bash(npm install *)",
       "Bash(npm run *)",
       "Bash(curl -s http://localhost:3000/learn/global-object)",
-      "Bash(pkill -f \"next dev\")"
+      "Bash(pkill -f \"next dev\")",
+      "WebFetch(domain:www.arjun-r.com)",
+      "WebFetch(domain:magicui.design)",
+      "Bash(npx shadcn@latest add @magicui/highlighter --yes)",
+      "Bash(npx shadcn@latest add @aceternity/dot-background-demo --yes)",
+      "Bash(npx tsc *)"
     ]
   }
 }
