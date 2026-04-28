@@ -3,6 +3,7 @@ import { Nunito } from "next/font/google"
 
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
+import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
 const nunito = Nunito({
@@ -12,7 +13,7 @@ const nunito = Nunito({
 
 // Replace with your production URL when deploying.
 const siteUrl = new URL(
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://jsinside.vercel.app",
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://jsinside.vercel.app"
 )
 
 export const metadata: Metadata = {
@@ -72,6 +73,7 @@ export default function RootLayout({
       className={cn("dark antialiased", nunito.variable, "font-sans")}
     >
       <body className="min-h-svh bg-background">
+        <Analytics />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
