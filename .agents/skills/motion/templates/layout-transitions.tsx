@@ -249,7 +249,7 @@ export function TabPanel({ tabs }: TabPanelProps) {
  *
  * <div className="grid grid-cols-2 gap-4">
  *   <TabPanel tabs={[...]} />
- *   <TabPanel tabs={[...]} />  {/* No layoutId conflicts! */}
+ *   <TabPanel tabs={[...]} />  // No layoutId conflicts!
  * </div>
  */
 
@@ -458,7 +458,7 @@ export function DragToReorder() {
  * Animate items in masonry/Pinterest-style layout.
  */
 export function MasonryLayout() {
-  const [items, setItems] = useState(
+  const [items, setItems] = useState(() =>
     Array.from({ length: 12 }, (_, i) => ({
       id: i + 1,
       height: Math.floor(Math.random() * 200) + 100,

@@ -632,10 +632,10 @@ export function UIComponentsDemo() {
         <h2 className="text-2xl font-bold mb-4">4. Drag Carousel</h2>
         <DragCarousel
           items={[
-            <div className="text-2xl font-bold">Card 1</div>,
-            <div className="text-2xl font-bold">Card 2</div>,
-            <div className="text-2xl font-bold">Card 3</div>,
-            <div className="text-2xl font-bold">Card 4</div>,
+            <div key="1" className="text-2xl font-bold">Card 1</div>,
+            <div key="2" className="text-2xl font-bold">Card 2</div>,
+            <div key="3" className="text-2xl font-bold">Card 3</div>,
+            <div key="4" className="text-2xl font-bold">Card 4</div>,
           ]}
         />
       </section>

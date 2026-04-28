@@ -9,7 +9,8 @@
       "WebFetch(domain:magicui.design)",
       "Bash(npx shadcn@latest add @magicui/highlighter --yes)",
       "Bash(npx shadcn@latest add @aceternity/dot-background-demo --yes)",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(grep -E \"\\\\.\\(tsx|ts\\)$\")"
     ]
   }
 }

@@ -46,7 +46,7 @@ export function LearnToc({ items }: LearnTocProps) {
 
   return (
     <aside className="hidden shrink-0 lg:block lg:w-[220px]">
-      <div className="sticky top-16 max-h-[calc(100svh-4rem)] overflow-y-auto pb-10 pt-8">
+      <div className="sticky top-16 pb-6 pt-8">
         <p className="mb-4 font-sans text-xs font-bold uppercase tracking-widest text-[oklch(0.60_0.04_50)]">
           On this page
         </p>

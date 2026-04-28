@@ -25,7 +25,7 @@ export function LearnSidebar({ currentPath }: LearnSidebarProps) {
           <p className="mb-4 font-sans text-xs font-bold uppercase tracking-widest text-[oklch(0.60_0.04_50)]">
             Curriculum
           </p>
-          <ul className="space-y-2">
+          <ul className="space-y-2 pb-1 pr-1">
             {LEARN_TOPICS.map((topic, i) => {
               const active = currentPath === topic.href
               const color = topicColors[i % topicColors.length]

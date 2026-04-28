@@ -133,7 +133,7 @@ function Scene1() {
 						marginBottom: "40px",
 					}}
 				>
-					<span style={{ color: "#9ca3af" }}>// script.js</span>
+					<span style={{ color: "#9ca3af" }}>{'// script.js'}</span>
 					<br />
 					<span style={{ color: "#6b7280" }}>{/* empty */}</span>
 				</div>
