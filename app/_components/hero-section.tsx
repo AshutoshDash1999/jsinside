@@ -13,23 +13,23 @@ export function HeroSection() {
         <div className="max-w-4xl">
 
           <ScrollReveal>
-            <span className="font-body text-sm italic tracking-wide text-[oklch(0.55_0.10_45)]">
-              — a visual guide to JS internals
+            <span className="inline-block rounded-full border-2 border-[oklch(0.72_0.15_230)] bg-[oklch(0.93_0.08_230)] px-4 py-1.5 font-sans text-sm font-medium text-[oklch(0.35_0.15_230)]">
+              visual learning for JS beginners ✦
             </span>
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
-            <h1 className="mt-5 font-display text-[clamp(3rem,8vw,6.5rem)] font-black leading-[1.02] tracking-tight text-[oklch(0.18_0.025_60)]">
+            <h1 className="mt-6 font-display text-[clamp(2.8rem,7vw,5.5rem)] leading-[1.12] text-[oklch(0.22_0.04_50)]">
               See what happens
               <br />
               inside{" "}
               <Highlighter
                 action="highlight"
-                color="#fbbf24"
+                color="#fde68a"
                 isView
                 animationDuration={900}
                 iterations={1}
-                padding={5}
+                padding={6}
               >
                 JavaScript
               </Highlighter>
@@ -37,7 +37,7 @@ export function HeroSection() {
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            <p className="mt-7 max-w-lg font-body text-lg leading-[1.8] text-[oklch(0.45_0.03_60)]">
+            <p className="mt-7 max-w-lg font-sans text-lg leading-[1.8] text-[oklch(0.45_0.04_50)]">
               For absolute beginners who want to truly understand execution contexts,
               call stacks, and what the runtime actually does — shown, not just told.
             </p>
@@ -48,26 +48,42 @@ export function HeroSection() {
               <Button
                 asChild
                 size="lg"
-                className="rounded-lg bg-[oklch(0.55_0.13_45)] text-[oklch(0.97_0.015_85)] shadow-md shadow-[oklch(0.55_0.13_45)]/25 transition-all duration-150 hover:bg-[oklch(0.52_0.13_45)] active:scale-[0.97]"
+                className="rounded-2xl border-2 border-[oklch(0.45_0.20_27)] bg-[oklch(0.58_0.20_27)] font-sans font-semibold text-white shadow-[4px_4px_0px_oklch(0.45_0.20_27)] transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_oklch(0.45_0.20_27)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
               >
                 <Link href="/learn">Start learning →</Link>
               </Button>
               <Button
                 asChild
-                variant="ghost"
                 size="lg"
-                className="rounded-lg text-[oklch(0.45_0.03_60)] hover:bg-[oklch(0.93_0.012_85)] hover:text-[oklch(0.18_0.025_60)]"
+                className="rounded-2xl border-2 border-[oklch(0.68_0.14_295)] bg-[oklch(0.93_0.07_295)] font-sans font-semibold text-[oklch(0.40_0.14_295)] shadow-[4px_4px_0px_oklch(0.68_0.14_295)] transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_oklch(0.68_0.14_295)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
               >
                 <Link href="/playground">Open playground</Link>
               </Button>
             </div>
           </ScrollReveal>
 
+          <ScrollReveal delay={0.4} className="mt-14 flex flex-wrap gap-5">
+            {[
+              { emoji: "🧠", label: "Execution Context" },
+              { emoji: "📚", label: "Call Stack" },
+              { emoji: "⬆️", label: "Hoisting" },
+              { emoji: "🔄", label: "Event Loop" },
+            ].map(({ emoji, label }) => (
+              <div
+                key={label}
+                className="flex items-center gap-2 rounded-xl border-2 border-[oklch(0.88_0.02_85)] bg-white px-4 py-2 font-sans text-sm font-medium text-[oklch(0.40_0.04_50)] shadow-sm"
+              >
+                <span>{emoji}</span>
+                {label}
+              </div>
+            ))}
+          </ScrollReveal>
+
         </div>
 
-        <ScrollReveal delay={0.55} className="pointer-events-none absolute bottom-14 right-14 hidden opacity-35 lg:block">
+        <div aria-hidden className="pointer-events-none absolute bottom-14 right-14 hidden opacity-30 lg:block">
           <DoodleCurveArrow />
-        </ScrollReveal>
+        </div>
 
       </div>
     </section>
@@ -79,15 +95,15 @@ function DoodleCurveArrow() {
     <svg width="96" height="72" viewBox="0 0 96 72" fill="none" aria-hidden>
       <path
         d="M6 10 Q28 2 56 18 Q78 32 84 56"
-        stroke="oklch(0.35 0.06 60)"
-        strokeWidth="1.8"
+        stroke="oklch(0.58 0.20 27)"
+        strokeWidth="2"
         strokeLinecap="round"
         fill="none"
       />
       <path
         d="M72 50 L84 56 L80 69"
-        stroke="oklch(0.35 0.06 60)"
-        strokeWidth="1.8"
+        stroke="oklch(0.58 0.20 27)"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"

@@ -10,6 +10,7 @@ import {
   LEARN_PREV_NEXT_BY_PATH,
   LEARN_TOC_BY_PATH,
 } from "@/lib/learn-nav"
+import { DotBackground } from "@/components/ui/dot-background"
 
 interface LearnLayoutClientProps {
   children: React.ReactNode
@@ -21,32 +22,25 @@ export function LearnLayoutClient({ children }: LearnLayoutClientProps) {
   const nav = LEARN_PREV_NEXT_BY_PATH[pathname]
 
   return (
-    <div className="min-h-svh bg-[#0B0B12]">
-      <div
-        className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(139,92,246,0.12),transparent)]"
-        aria-hidden
-      />
+    <DotBackground className="min-h-svh">
+      <SiteHeader />
 
-      <div className="relative z-10">
-        <SiteHeader />
+      <div className="mx-auto max-w-[1400px] px-4 md:px-6">
+        <div className="flex gap-8 lg:gap-10 xl:gap-12">
+          <LearnSidebar currentPath={pathname} />
 
-        <div className="mx-auto max-w-[1400px] px-4 md:px-6">
-          <div className="flex gap-8 lg:gap-10 xl:gap-12">
-            <LearnSidebar currentPath={pathname} />
+          <main className="min-w-0 flex-1 pb-16 pt-8">
+            <article className="prose-docs mx-auto w-full max-w-[740px]">
+              {children}
+              {nav ? (
+                <LearnPrevNext prev={nav.prev} next={nav.next} />
+              ) : null}
+            </article>
+          </main>
 
-            <main className="min-w-0 flex-1 pb-16 pt-6 md:pt-8">
-              <article className="prose-docs mx-auto w-full max-w-[800px]">
-                {children}
-                {nav ? (
-                  <LearnPrevNext prev={nav.prev} next={nav.next} />
-                ) : null}
-              </article>
-            </main>
-
-            <LearnToc items={toc} />
-          </div>
+          <LearnToc items={toc} />
         </div>
       </div>
-    </div>
+    </DotBackground>
   )
 }

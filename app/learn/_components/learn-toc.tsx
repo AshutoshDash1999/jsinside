@@ -45,12 +45,12 @@ export function LearnToc({ items }: LearnTocProps) {
   if (items.length === 0) return null
 
   return (
-    <aside className="hidden shrink-0 lg:block lg:w-[240px]">
-      <div className="sticky top-16 max-h-[calc(100svh-4rem)] overflow-y-auto pb-10 pt-6">
-        <p className="mb-3 text-xs font-medium uppercase tracking-wider text-slate-500">
+    <aside className="hidden shrink-0 lg:block lg:w-[220px]">
+      <div className="sticky top-16 max-h-[calc(100svh-4rem)] overflow-y-auto pb-10 pt-8">
+        <p className="mb-4 font-sans text-xs font-bold uppercase tracking-widest text-[oklch(0.60_0.04_50)]">
           On this page
         </p>
-        <ul className="space-y-1 border-l border-white/10 pl-3">
+        <ul className="space-y-1 border-l-2 border-[oklch(0.88_0.02_85)] pl-3">
           {items.map((item) => {
             const active = activeId === item.id
             return (
@@ -58,10 +58,10 @@ export function LearnToc({ items }: LearnTocProps) {
                 <a
                   href={`#${item.id}`}
                   className={cn(
-                    "block py-1.5 text-sm transition-colors",
+                    "block py-1.5 font-sans text-sm transition-all duration-150",
                     active
-                      ? "font-medium text-emerald-400"
-                      : "text-slate-500 hover:text-slate-300",
+                      ? "font-semibold text-[oklch(0.58_0.20_27)] translate-x-1"
+                      : "text-[oklch(0.55_0.04_50)] hover:text-[oklch(0.22_0.04_50)]",
                   )}
                 >
                   {item.label}
@@ -71,12 +71,12 @@ export function LearnToc({ items }: LearnTocProps) {
           })}
         </ul>
 
-        <div className="mt-8 flex flex-col gap-2 border-t border-white/10 pt-6">
+        <div className="mt-8 flex flex-col gap-2 border-t-2 border-[oklch(0.88_0.02_85)] pt-6">
           <a
             href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-lg px-3 py-2 text-center text-sm text-slate-500 transition-colors hover:bg-white/5 hover:text-slate-200"
+            className="rounded-xl px-3 py-2 text-center font-sans text-sm text-[oklch(0.55_0.04_50)] transition-colors hover:bg-[oklch(0.96_0.01_85)] hover:text-[oklch(0.22_0.04_50)]"
           >
             Edit this page
           </a>
@@ -84,7 +84,7 @@ export function LearnToc({ items }: LearnTocProps) {
             href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-lg px-3 py-2 text-center text-sm text-slate-500 transition-colors hover:bg-white/5 hover:text-slate-200"
+            className="rounded-xl px-3 py-2 text-center font-sans text-sm text-[oklch(0.55_0.04_50)] transition-colors hover:bg-[oklch(0.96_0.01_85)] hover:text-[oklch(0.22_0.04_50)]"
           >
             Report a bug
           </a>

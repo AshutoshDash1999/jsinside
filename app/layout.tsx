@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next"
-import { Fraunces, Lora, Nunito } from "next/font/google"
+import { Nunito, Playwrite_IN } from "next/font/google"
 
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
@@ -12,18 +12,11 @@ const nunito = Nunito({
   display: "swap",
 })
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
+const playwrite = Playwrite_IN({
   variable: "--font-display",
-  axes: ["opsz"],
   display: "swap",
 })
 
-const lora = Lora({
-  subsets: ["latin"],
-  variable: "--font-body",
-  display: "swap",
-})
 
 const siteUrl = new URL(
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://jsinside.vercel.app"
@@ -86,8 +79,7 @@ export default function RootLayout({
       className={cn(
         "antialiased",
         nunito.variable,
-        fraunces.variable,
-        lora.variable,
+        playwrite.variable,
         "font-sans",
       )}
     >

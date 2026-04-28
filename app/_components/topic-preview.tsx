@@ -24,6 +24,9 @@ const topics: {
   gridClass: string
   titleClass: string
   iconClass: string
+  bg: string
+  border: string
+  shadow: string
 }[] = [
   {
     id: "closures",
@@ -32,7 +35,10 @@ const topics: {
     icon: IconLayersLinked,
     gridClass: "md:col-span-2 md:row-span-2 md:min-h-52",
     titleClass: "md:text-xl",
-    iconClass: "text-rose-600",
+    iconClass: "text-rose-700",
+    bg: "bg-rose-100",
+    border: "border-rose-400",
+    shadow: "shadow-[4px_4px_0px_theme(colors.rose.400)]",
   },
   {
     id: "promises",
@@ -41,7 +47,10 @@ const topics: {
     icon: IconBolt,
     gridClass: "md:col-span-2 md:row-span-1",
     titleClass: "",
-    iconClass: "text-fuchsia-600",
+    iconClass: "text-fuchsia-700",
+    bg: "bg-fuchsia-100",
+    border: "border-fuchsia-400",
+    shadow: "shadow-[4px_4px_0px_theme(colors.fuchsia.400)]",
   },
   {
     id: "hoisting",
@@ -51,6 +60,9 @@ const topics: {
     gridClass: "md:col-span-1 md:row-span-1",
     titleClass: "",
     iconClass: "text-lime-700",
+    bg: "bg-lime-100",
+    border: "border-lime-400",
+    shadow: "shadow-[4px_4px_0px_theme(colors.lime.400)]",
   },
   {
     id: "prototypes",
@@ -59,7 +71,10 @@ const topics: {
     icon: IconAffiliate,
     gridClass: "md:col-span-1 md:row-span-1",
     titleClass: "",
-    iconClass: "text-teal-600",
+    iconClass: "text-teal-700",
+    bg: "bg-teal-100",
+    border: "border-teal-400",
+    shadow: "shadow-[4px_4px_0px_theme(colors.teal.400)]",
   },
   {
     id: "event-loop",
@@ -69,7 +84,10 @@ const topics: {
     icon: IconRefresh,
     gridClass: "md:col-span-2 md:row-span-1",
     titleClass: "",
-    iconClass: "text-sky-600",
+    iconClass: "text-sky-700",
+    bg: "bg-sky-100",
+    border: "border-sky-400",
+    shadow: "shadow-[4px_4px_0px_theme(colors.sky.400)]",
   },
   {
     id: "modules",
@@ -78,7 +96,10 @@ const topics: {
     icon: IconPackages,
     gridClass: "md:col-span-2 md:row-span-1",
     titleClass: "",
-    iconClass: "text-indigo-600",
+    iconClass: "text-indigo-700",
+    bg: "bg-indigo-100",
+    border: "border-indigo-400",
+    shadow: "shadow-[4px_4px_0px_theme(colors.indigo.400)]",
   },
 ]
 
@@ -93,20 +114,20 @@ export function TopicPreview() {
         <ScrollReveal>
           <h2
             id="topics-heading"
-            className="mb-3 font-display text-3xl font-black tracking-tight text-[oklch(0.18_0.025_60)] md:text-4xl"
+            className="mb-3 font-display text-[clamp(2rem,5vw,3rem)] leading-tight text-[oklch(0.22_0.04_50)]"
           >
             Core concepts
           </h2>
         </ScrollReveal>
         <ScrollReveal delay={0.08}>
-          <p className="mb-12 max-w-xl font-body text-base leading-relaxed text-[oklch(0.50_0.03_60)]">
+          <p className="mb-12 max-w-xl font-sans text-base leading-relaxed text-[oklch(0.50_0.04_50)]">
             Six short paths into the ideas that power modern JavaScript — each with a
             clear mental model.
           </p>
         </ScrollReveal>
 
-        <ul className="grid grid-cols-1 gap-3 md:auto-rows-fr md:grid-cols-4 md:gap-3">
-          {topics.map(({ id, title, description, icon: Icon, gridClass, titleClass, iconClass }, i) => (
+        <ul className="grid grid-cols-1 gap-4 md:auto-rows-fr md:grid-cols-4 md:gap-4">
+          {topics.map(({ id, title, description, icon: Icon, gridClass, titleClass, iconClass, bg, border, shadow }, i) => (
             <ScrollReveal
               key={id}
               delay={i * 0.07}
@@ -115,10 +136,10 @@ export function TopicPreview() {
               <li className="h-full">
                 <div
                   className={cn(
-                    "flex h-full min-h-0 flex-col gap-3 rounded-xl border border-[oklch(0.87_0.015_85)] bg-[oklch(0.97_0.015_85)] p-5",
-                    "transform-gpu transition duration-300 ease-out will-change-transform",
-                    "hover:-translate-y-1 hover:border-[oklch(0.82_0.02_85)] hover:shadow-lg hover:shadow-stone-200/80",
-                    "active:translate-y-0",
+                    "flex h-full min-h-0 flex-col gap-3 rounded-2xl border-2 p-5",
+                    bg, border, shadow,
+                    "transform-gpu transition-all duration-200 ease-out will-change-transform",
+                    "hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none",
                   )}
                 >
                   <div className="shrink-0 space-y-2">
@@ -128,11 +149,11 @@ export function TopicPreview() {
                         stroke={1.75}
                         aria-hidden
                       />
-                      <h3 className={cn("font-display font-bold text-[oklch(0.18_0.025_60)]", titleClass)}>
+                      <h3 className={cn("font-sans font-bold text-[oklch(0.22_0.04_50)]", titleClass)}>
                         {title}
                       </h3>
                     </div>
-                    <p className="font-body text-sm leading-relaxed text-[oklch(0.50_0.03_60)]">
+                    <p className="font-sans text-sm leading-relaxed text-[oklch(0.45_0.04_50)]">
                       {description}
                     </p>
                   </div>
