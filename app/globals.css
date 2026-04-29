@@ -5,47 +5,47 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Children's book — bright, warm, joyful */
-  --background: oklch(0.99 0.008 85);
-  --foreground: oklch(0.22 0.04 50);
-  --card: oklch(0.99 0.006 85);
-  --card-foreground: oklch(0.22 0.04 50);
-  --popover: oklch(0.99 0.008 85);
-  --popover-foreground: oklch(0.22 0.04 50);
-  --primary: oklch(0.58 0.20 27);        /* tomato red */
-  --primary-foreground: oklch(0.99 0.008 85);
-  --secondary: oklch(0.72 0.15 230);     /* sky blue */
-  --secondary-foreground: oklch(0.99 0.008 85);
+  /* Playful doodly EdTech — yellow primary, coral + sky blue accents */
+  --background: oklch(0.984 0.003 85);   /* #FAFAFA off-white */
+  --foreground: oklch(0.27 0.005 60);    /* #333333 charcoal */
+  --card: oklch(1 0.002 85);
+  --card-foreground: oklch(0.27 0.005 60);
+  --popover: oklch(0.984 0.003 85);
+  --popover-foreground: oklch(0.27 0.005 60);
+  --primary: oklch(0.88 0.20 95);        /* #FFD700 yellow */
+  --primary-foreground: oklch(0.22 0.04 50);
+  --secondary: oklch(0.82 0.086 220);    /* #87CEEB sky blue */
+  --secondary-foreground: oklch(0.27 0.005 60);
   --muted: oklch(0.96 0.01 85);
-  --muted-foreground: oklch(0.52 0.04 50);
-  --accent: oklch(0.86 0.16 90);         /* sunshine yellow */
-  --accent-foreground: oklch(0.22 0.04 50);
+  --muted-foreground: oklch(0.55 0.02 60);
+  --accent: oklch(0.67 0.175 34);        /* #FF7F50 coral */
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.88 0.02 85);
   --input: oklch(0.95 0.01 85);
-  --ring: oklch(0.58 0.20 27);
-  --chart-1: oklch(0.58 0.20 27);
-  --chart-2: oklch(0.72 0.15 230);
+  --ring: oklch(0.88 0.20 95);           /* yellow ring */
+  --chart-1: oklch(0.88 0.20 95);
+  --chart-2: oklch(0.82 0.086 220);
   --chart-3: oklch(0.65 0.18 145);
-  --chart-4: oklch(0.68 0.14 295);
+  --chart-4: oklch(0.67 0.175 34);
   --chart-5: oklch(0.74 0.18 55);
   --radius: 0.75rem;
   --sidebar: oklch(0.97 0.01 85);
-  --sidebar-foreground: oklch(0.22 0.04 50);
-  --sidebar-primary: oklch(0.58 0.20 27);
-  --sidebar-primary-foreground: oklch(0.99 0.008 85);
+  --sidebar-foreground: oklch(0.27 0.005 60);
+  --sidebar-primary: oklch(0.88 0.20 95);
+  --sidebar-primary-foreground: oklch(0.22 0.04 50);
   --sidebar-accent: oklch(0.95 0.01 85);
-  --sidebar-accent-foreground: oklch(0.22 0.04 50);
+  --sidebar-accent-foreground: oklch(0.27 0.005 60);
   --sidebar-border: oklch(0.88 0.02 85);
-  --sidebar-ring: oklch(0.58 0.20 27);
+  --sidebar-ring: oklch(0.88 0.20 95);
 
   /* Named accent swatches */
-  --c-yellow: oklch(0.92 0.14 90);
-  --c-yellow-border: oklch(0.78 0.16 90);
-  --c-blue: oklch(0.93 0.08 230);
-  --c-blue-border: oklch(0.68 0.15 230);
-  --c-orange: oklch(0.94 0.09 55);
-  --c-orange-border: oklch(0.72 0.17 55);
+  --c-yellow: oklch(0.88 0.20 95);       /* #FFD700 yellow */
+  --c-yellow-border: oklch(0.75 0.18 95);
+  --c-blue: oklch(0.88 0.086 220);       /* #87CEEB sky blue */
+  --c-blue-border: oklch(0.68 0.12 220);
+  --c-orange: oklch(0.92 0.08 34);       /* #FF7F50 coral light bg */
+  --c-orange-border: oklch(0.67 0.175 34);
   --c-purple: oklch(0.93 0.07 295);
   --c-purple-border: oklch(0.65 0.15 295);
   --c-green: oklch(0.93 0.09 145);

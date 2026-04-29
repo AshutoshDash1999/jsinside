@@ -10,7 +10,12 @@
       "Bash(npx shadcn@latest add @magicui/highlighter --yes)",
       "Bash(npx shadcn@latest add @aceternity/dot-background-demo --yes)",
       "Bash(npx tsc *)",
-      "Bash(grep -E \"\\\\.\\(tsx|ts\\)$\")"
+      "Bash(grep -E \"\\\\.\\(tsx|ts\\)$\")",
+      "WebFetch(domain:stitch.withgoogle.com)",
+      "Bash(gh api *)",
+      "Bash(curl -s https://raw.githubusercontent.com/google-labs-code/design.md/main/examples/atmospheric-glass/DESIGN.md)",
+      "Bash(curl *)",
+      "Bash(grep -E \"\\\\.\\(mjs|js|ts\\)$\")"
     ]
   }
 }

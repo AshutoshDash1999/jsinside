@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next"
-import { Nunito, Playwrite_IN } from "next/font/google"
+import { Nunito, Gochi_Hand } from "next/font/google"
 
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
@@ -12,7 +12,9 @@ const nunito = Nunito({
   display: "swap",
 })
 
-const playwrite = Playwrite_IN({
+const gochiHand = Gochi_Hand({
+  weight: "400",
+  subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
 })
@@ -79,7 +81,7 @@ export default function RootLayout({
       className={cn(
         "antialiased",
         nunito.variable,
-        playwrite.variable,
+        gochiHand.variable,
         "font-sans",
       )}
     >
