@@ -1,7 +1,24 @@
 import Link from "next/link"
+import {
+  IconBraces,
+  IconStack2,
+  IconArrowBarToUp,
+  IconVariable,
+  IconWorld,
+  IconInfinity,
+} from "@tabler/icons-react"
 
 import { LEARN_TOPICS } from "@/lib/learn-nav"
 import { cn } from "@/lib/utils"
+
+const TOPIC_ICONS: Record<string, React.ReactNode> = {
+  "/learn/execution-context": <IconBraces size={16} />,
+  "/learn/call-stack": <IconStack2 size={16} />,
+  "/learn/hoisting": <IconArrowBarToUp size={16} />,
+  "/learn/variable-environment": <IconVariable size={16} />,
+  "/learn/global-object": <IconWorld size={16} />,
+  "/learn/event-loop": <IconInfinity size={16} />,
+}
 
 const topicColors = [
   { bg: "bg-red-100", border: "border-red-400", text: "text-red-700", dot: "bg-red-400" },
@@ -40,7 +57,9 @@ export function LearnSidebar({ currentPath }: LearnSidebarProps) {
                         : "border-transparent text-[oklch(0.45_0.04_50)] hover:bg-[oklch(0.96_0.01_85)] hover:text-[oklch(0.22_0.04_50)]",
                     )}
                   >
-                    <span className={cn("size-2 shrink-0 rounded-full", color.dot)} />
+                    <span className={cn("shrink-0", active ? color.text : "text-[oklch(0.60_0.04_50)]")}>
+                      {TOPIC_ICONS[topic.href]}
+                    </span>
                     {topic.label}
                   </Link>
                 </li>

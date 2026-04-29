@@ -1,6 +1,7 @@
 "use client"
 
 import { usePathname } from "next/navigation"
+import { motion } from "motion/react"
 
 import { LearnPrevNext } from "@/app/learn/_components/learn-prev-next"
 import { LearnSidebar } from "@/app/learn/_components/learn-sidebar"
@@ -30,12 +31,18 @@ export function LearnLayoutClient({ children }: LearnLayoutClientProps) {
           <LearnSidebar currentPath={pathname} />
 
           <main className="min-w-0 flex-1 pb-16 pt-8">
-            <article className="prose-docs mx-auto w-full max-w-[740px]">
+            <motion.article
+              key={pathname}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="prose-docs mx-auto w-full max-w-[740px]"
+            >
               {children}
               {nav ? (
                 <LearnPrevNext prev={nav.prev} next={nav.next} />
               ) : null}
-            </article>
+            </motion.article>
           </main>
 
           <LearnToc items={toc} />

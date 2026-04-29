@@ -1,8 +1,25 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import {
+  IconBraces,
+  IconStack2,
+  IconArrowBarToUp,
+  IconVariable,
+  IconWorld,
+  IconInfinity,
+} from "@tabler/icons-react"
 
 import { LEARN_TOPICS } from "@/lib/learn-nav"
 import { cn } from "@/lib/utils"
+
+const TOPIC_ICONS: Record<string, React.ReactNode> = {
+  "/learn/execution-context": <IconBraces size={20} />,
+  "/learn/call-stack": <IconStack2 size={20} />,
+  "/learn/hoisting": <IconArrowBarToUp size={20} />,
+  "/learn/variable-environment": <IconVariable size={20} />,
+  "/learn/global-object": <IconWorld size={20} />,
+  "/learn/event-loop": <IconInfinity size={20} />,
+}
 
 const title = "Learn"
 
@@ -56,6 +73,9 @@ export default function LearnIndexPage() {
                   "transition-colors hover:border-violet-500/30 hover:bg-white/[0.07]",
                 )}
               >
+                <span className="mb-2 flex size-8 items-center justify-center rounded-lg bg-violet-500/10 text-violet-400">
+                  {TOPIC_ICONS[topic.href]}
+                </span>
                 <span className="font-heading-learn font-semibold text-slate-100">
                   {topic.label}
                 </span>

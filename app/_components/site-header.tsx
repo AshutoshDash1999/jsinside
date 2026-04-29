@@ -16,7 +16,10 @@ export function SiteHeader() {
   const pathname = usePathname()
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-[oklch(0.88_0.02_85)] bg-[oklch(0.99_0.008_85)]/90 backdrop-blur-md">
+    <header
+      style={{ viewTransitionName: "site-header" }}
+      className="sticky top-0 z-50 border-b-2 border-[oklch(0.88_0.02_85)] bg-[oklch(0.99_0.008_85)]/90 backdrop-blur-md"
+    >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-6 md:px-10">
 
         <Link

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import { Nunito, Gochi_Hand } from "next/font/google"
+import { ViewTransitions } from "next-view-transitions"
 
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
@@ -93,7 +94,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <ViewTransitions>{children}</ViewTransitions>
         </ThemeProvider>
       </body>
     </html>
