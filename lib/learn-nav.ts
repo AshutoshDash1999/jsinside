@@ -72,6 +72,20 @@ export const LEARN_LESSONS: LessonEntry[] = [
     ],
   },
   {
+    href: "/learn/undefined-not-defined",
+    label: "undefined vs not defined",
+    description:
+      "undefined is a real placeholder value the engine assigns before execution — not defined is a ReferenceError for names that were never declared.",
+    toc: [
+      { id: "memory-allocation", label: "Memory allocation before execution" },
+      { id: "undefined-as-placeholder", label: "undefined: real value, not empty" },
+      { id: "not-defined", label: "not defined: no binding at all" },
+      { id: "loosely-typed", label: "Loosely typed" },
+      { id: "best-practices", label: "Never assign undefined manually" },
+      { id: "recap", label: "Recap" },
+    ],
+  },
+  {
     href: "/learn/variable-environment",
     label: "Variable environment & invocation",
     description:

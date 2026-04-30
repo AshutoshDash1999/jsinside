@@ -15,7 +15,8 @@
       "Bash(gh api *)",
       "Bash(curl -s https://raw.githubusercontent.com/google-labs-code/design.md/main/examples/atmospheric-glass/DESIGN.md)",
       "Bash(curl *)",
-      "Bash(grep -E \"\\\\.\\(mjs|js|ts\\)$\")"
+      "Bash(grep -E \"\\\\.\\(mjs|js|ts\\)$\")",
+      "Bash(xargs grep *)"
     ]
   }
 }

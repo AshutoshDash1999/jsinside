@@ -7,6 +7,7 @@ import {
   IconVariable,
   IconWorld,
   IconInfinity,
+  IconQuestionMark,
 } from "@tabler/icons-react"
 
 import { LEARN_TOPICS } from "@/lib/learn-nav"
@@ -16,6 +17,7 @@ const TOPIC_ICONS: Record<string, React.ReactNode> = {
   "/learn/execution-context": <IconBraces size={20} />,
   "/learn/call-stack": <IconStack2 size={20} />,
   "/learn/hoisting": <IconArrowBarToUp size={20} />,
+  "/learn/undefined-not-defined": <IconQuestionMark size={20} />,
   "/learn/variable-environment": <IconVariable size={20} />,
   "/learn/global-object": <IconWorld size={20} />,
   "/learn/event-loop": <IconInfinity size={20} />,
